@@ -1,0 +1,26 @@
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.LocalDateTime;
+public class TimeAndDateDemo
+{
+    public static void main(String[] args)
+    {
+        System.out.println("Java Time API");
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now();
+        LocalDateTime dateTime = LocalDateTime.now();
+        System.out.println("Current Date: " + date);
+        System.out.println("Current Time: " + time);
+        System.out.println("Current DateTime: " + dateTime);
+        LocalDate myDate = LocalDate.of(2025, 10, 28);
+        LocalTime myTime = LocalTime.of(14, 30, 0); 
+        LocalDateTime myDateTime = LocalDateTime.of(myDate, myTime);
+        System.out.println("\nSpecific Date: " + myDate);
+        System.out.println("Specific Time: " + myTime); 
+        System.out.println("Specific DateTime: " + myDateTime); 
+        LocalTime newTime = myTime.plusHours(5).plusMinutes(30);
+        System.out.println("\nAfter adding 5hrs 30mins: " + newTime);
+        LocalDate newDate = myDate.plusDays(10);
+        System.out.println("After 10 days: " + newDate);
+    }
+}
