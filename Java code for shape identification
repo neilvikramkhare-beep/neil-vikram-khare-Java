@@ -1,0 +1,31 @@
+package useful;
+import java.lang.IllegalArgumentException;
+public class Shape
+ {
+    public double area(String shape, Double... params)
+     {
+        switch (shape.toLowerCase()) 
+        {
+            case "rectangle":
+                if (params.length != 2) 
+                {
+                    throw new IllegalArgumentException("Rectangle requires 2 parameters: length and breadth");
+                }
+                return params[0] * params[1];
+            case "circle":
+                if (params.length != 1)
+                 {
+                    throw new IllegalArgumentException("Circle requires 1 parameter: radius");
+                }
+                return Math.PI * params[0] * params[0];
+            case "square":
+                if (params.length != 1) 
+                {
+                    throw new IllegalArgumentException("Square requires 1 parameter: side");
+                }
+                return params[0] * params[0];
+            default:
+                throw new IllegalArgumentException("Unknown shape: " + shape);
+        }
+    }
+}
