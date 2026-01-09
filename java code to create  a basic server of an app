@@ -1,0 +1,66 @@
+import com.sun.net.httpserver.HttpServer;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpExchange;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.net.InetSocketAddress;
+public class JavaTraceServer 
+{
+    private static final String TRACE_CHANNEL = "SERVER_TRACE";
+    private static final String FILE_NAME = "JavaTraceServer.java";
+    public static void trace(String message)
+    {
+        System.out.printf("[%s] [%s] %s%n", TRACE_CHANNEL, FILE_NAME, message);
+    }
+    interface ExpressApp 
+    {
+        void get(String path, HttpHandler handler);
+        void listen(int port);
+    }
+    public static void main(String[] args) throws IOException {
+        int httpPort = 3000;
+        HttpServer httpServer = HttpServer.create(new InetSocketAddress(httpPort), 0);
+        httpServer.createContext("/", exchange -> {
+            trace("HTTP " + exchange.getRequestMethod() + " " + exchange.getRequestURI());
+            String response = "Hello from Java HTTP server!";
+            exchange.sendResponseHeaders(200, response.length());
+            try (OutputStream os = exchange.getResponseBody())
+            {
+                os.write(response.getBytes());
+            }
+        });
+        httpServer.start();
+        trace("HTTP Server running at http://localhost:" + httpPort);
+        ExpressApp realApp = new ExpressAppImpl();
+        ExpressApp appProxy = wrapObject(realApp, "ExpressApp");
+        int expressPort = 4000;
+        appProxy.get("/", exchange -> {
+            trace("Express route \"/\" accessed");
+        });
+        appProxy.listen(expressPort);
+    }
+    @SuppressWarnings("unchecked")
+    public static <T> T wrapObject(T target, String name) {
+        trace(name + " initialized");
+        return (T) Proxy.newProxyInstance(
+            target.getClass().getClassLoader(),
+            target.getClass().getInterfaces(),
+            (proxy, method, args) -> {
+                trace(name + " method accessed: " + method.getName());
+                return method.invoke(target, args);
+            }
+        );
+    }
+    static class ExpressAppImpl implements ExpressApp {
+        @Override
+        public void get(String path, HttpHandler handler) {
+        }
+        @Override
+        public void listen(int port) {
+            trace("Express Server running at http://localhost:" + port);
+        }
+    }
+}
