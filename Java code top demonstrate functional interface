@@ -1,0 +1,24 @@
+interface Greeting 
+{
+    void sayHello();
+}
+interface Square
+{
+    int calculate(int x);
+}
+interface Sum
+{
+    int add(int a, int b);
+}
+public class LambdaExample
+{
+    public static void main(String[] args) 
+    {
+        Greeting g = () -> System.out.println("Hello World using Lambda!");
+        g.sayHello();
+        Square sq = (x) -> x * x;
+        System.out.println("Square of 5: " + sq.calculate(5));
+        Sum s = (a, b) -> a + b;
+        System.out.println("Sum: " + s.add(10, 20));
+    }
+}
