@@ -1,0 +1,33 @@
+package com.example.customtoast;
+import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+public class MainActivity extends AppCompatActivity {
+    Button btnShowToast;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        btnShowToast = findViewById(R.id.btnToast);
+        btnShowToast.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.custom_toast,
+                        findViewById(R.id.customToastLayout));
+                TextView text = layout.findViewById(R.id.tvToastMsg);
+                text.setText("This is a Custom Toast!");
+                Toast toast = new Toast(getApplicationContext());
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.setView(layout);
+                toast.show();
+            }
+        });
+    }
+}
