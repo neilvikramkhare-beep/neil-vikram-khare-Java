@@ -1,0 +1,51 @@
+public class StringDemo 
+{
+    public static void main(String[] args)
+    {
+        String name = "Neil";
+        String greeting = "Hello, " + name + "!";
+        System.out.println(greeting);
+        System.out.println(name);
+        System.out.println("The length of the name is: " + name.length());
+        System.out.println("The first character of the name is: " + name.charAt(0));
+        System.out.println("The name in uppercase is: " + name.toUpperCase());
+        System.out.println("The name in lowercase is: " + name.toLowerCase());
+        String anotherName = "neil";
+        System.out.println("Is the name equal to anotherName? " + name.equals(anotherName));
+        System.out.println("Is the name equal to anotherName (ignoring case)? " + name.equalsIgnoreCase(anotherName));
+        System.out.println("Does the name contain 'ei'? " + name.contains("ei"));
+        System.out.println("Does the name start with 'Ne'? " + name.startsWith("Ne"));
+        System.out.println("Does the name end with 'il'? " + name.endsWith("il"));
+        System.out.println("The index of 'i' in the name is: " + name.indexOf('i'));
+        System.out.println("The substring of the name from index 1 to 3 is: " + name.substring(1, 3));
+        System.out.println("The name repeated 3 times is: " + name.repeat(3));
+        System.out.println("The name with whitespace trimmed is: '" + name.trim() + "'");
+        System.out.println("The name with 'e' replaced by 'a' is: " + name.replace('e', 'a'));
+        System.out.println("The name split by 'i' is: " + String.join(", ", name.split("i")));
+        System.out.println("The name reversed is: " + new StringBuilder(name).reverse().toString());
+        System.out.println("The name with 'e' removed is: " + name.replace("e", ""));
+        System.out.println("The name with 'e' replaced by 'a' and 'i' replaced by 'o' is: " + name.replace('e', 'a').replace('i', 'o'));
+        System.out.println("Can the name be parsed as an integer? " + isInteger(name));
+        System.out.println("The name in bytes is: " + java.util.Arrays.toString(name.getBytes()));
+        System.out.println("The name in hexadecimal is: " + bytesToHex(name.getBytes()));
+        System.out.println("Concatenating the name with itself gives: " + name.concat(name));
+    }
+    private static String bytesToHex(byte[] bytes) {
+        StringBuilder hex = new StringBuilder();
+        for (byte b : bytes) {
+            hex.append(String.format("%02x", b));
+        }
+        return hex.toString();
+    }
+    private static boolean isInteger(String name) {
+        try {
+            Integer.parseInt(name);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    public boolean equalsIgnoreCase(String string) {
+        throw new UnsupportedOperationException("Unimplemented method 'equalsIgnoreCase'");
+    }
+}
