@@ -1,0 +1,32 @@
+
+public class NonPrimitive {
+    public static void main(String[] args) {
+        String myText = "Hello";
+        System.out.println(myText);
+        System.out.println(myText.length());
+        System.out.println(myText.toUpperCase());
+        System.out.println(myText.toLowerCase());
+        System.out.println(myText.indexOf("e"));
+        System.out.println(myText.replace("H", "J"));
+        System.out.println(myText.substring(1, 4));
+        System.out.println(myText.charAt(0));
+        System.out.println(myText.contains("Hello"));
+        System.out.println(myText.equals("Hello"));
+        System.out.println(myText.equalsIgnoreCase("hello"));
+        System.out.println(myText.startsWith("H"));
+        System.out.println(myText.endsWith("o"));
+        System.out.println(myText.isEmpty());
+        System.out.println(myText.trim());
+        System.out.println(myText.split("e")[0]);
+        System.out.println(myText.concat(" World"));
+        System.out.println(myText.compareTo("Hello"));
+        System.out.println(myText.compareToIgnoreCase("hello"));
+        System.out.println(myText.matches("Hello"));
+        System.out.println(myText.replaceAll("Hello", "Hi"));
+        System.out.println(myText.replaceFirst("Hello", "Hi"));
+        System.out.println(myText.toCharArray());
+        System.out.println(myText.intern());
+        System.out.println(myText.getBytes());
+        System.out.println(myText.codePointAt(0));
+    }
+}
