@@ -1,0 +1,14 @@
+public class IfElse {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int cash = scanner.nextInt();
+        if (cash > 100) 
+            System.out.println("You are rich");
+        else if(cash > 50 && cash <= 100)
+            System.out.println("You are middle class");
+        {
+            else
+            System.out.println("You are poor");
+        }
+    }
+}
