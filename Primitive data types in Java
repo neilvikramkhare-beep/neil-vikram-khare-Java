@@ -1,0 +1,21 @@
+public class Primitive {
+    public static void main(String[] args) {
+        int myNum = 5;              
+        float myFloatNum = 5.99f;   
+        char myLetter = 'D';         
+        boolean myBool = true;       
+        String myText = "Hello";    
+        System.out.println(myNum);
+        System.out.println(myFloatNum);
+        System.out.println(myLetter);
+        System.out.println(myBool);
+        System.out.println(myText);
+        System.out.println("The value of myNum is: " + myNum);
+        System.out.println("The value of myFloatNum is: " + myFloatNum);
+        System.out.println("The value of myLetter is: " + myLetter);
+        System.out.println("The value of myBool is: " + myBool);
+        System.out.println("The value of myText is: " + myText);
+        System.out.println("The value of myNum is: " + myNum + ", the value of myFloatNum is: " + myFloatNum + ", the value of myLetter is: " + myLetter + ", the value of myBool is: " + myBool + ", and the value of myText is: " + myText);
+        System.out.println("Sum of myNum and 10 is: " + (myNum + 10));
+    }
+}
