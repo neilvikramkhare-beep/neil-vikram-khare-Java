@@ -1,0 +1,14 @@
+public class JavaMethods { 
+    public static void add(int a, int b) { 
+        int sumResult = a + b; 
+        System.out.println("Sum: " + sumResult); 
+    } 
+    public static void multiply(int a, int b) { 
+        int productResult = a * b; 
+        System.out.println("Product: " + productResult); 
+    } 
+    public static void main(String[] args) { 
+        add(6, 6); 
+        multiply(32, 45); 
+    } 
+}
