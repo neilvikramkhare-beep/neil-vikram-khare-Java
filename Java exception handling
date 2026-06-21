@@ -1,0 +1,14 @@
+public class ExceptionHandler {
+    public static void handleException(String[] args) {
+        int[] numbers = {1, 2, 3, 4, 5};
+        try {
+            System.out.println(numbers[Integer.parseInt(args[0])]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println("An error occurred: Index out of bounds");
+        } catch (NumberFormatException e) {
+            System.err.println("An error occurred: Invalid number format");
+        } catch (Exception e) {
+            System.err.println("An unexpected error occurred: " + e.getMessage());
+        }
+    }
+}
