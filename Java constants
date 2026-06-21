@@ -1,0 +1,8 @@
+public class Constants {
+    public static void main(String[] args) {
+        final int MAX_SIZE = 100;
+        final double PI = 3.14159;
+        System.out.println("Maximum size: " + MAX_SIZE);
+        System.out.println("Value of PI: " + PI);
+    }
+}
