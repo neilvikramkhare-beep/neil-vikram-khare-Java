@@ -1,0 +1,32 @@
+public class Operators {
+    public static void main(String[] args) {
+        int a = 10;
+        int b = 20;
+        int sum = a + b;
+        System.out.println("Sum: " + sum);
+        int difference = b - a;
+        System.out.println("Difference: " + difference);
+        int product = a * b;
+        System.out.println("Product: " + product);
+        int quotient = b / a;
+        System.out.println("Quotient: " + quotient);
+        int remainder = b % a;
+        System.out.println("Remainder: " + remainder);
+        int modulus = a % 3;
+        System.out.println("Modulus: " + modulus);
+        int increment = ++a;
+        System.out.println("Increment: " + increment);
+        int decrement = --b;
+        System.out.println("Decrement: " + decrement);
+        int equal = (a == b) ? 1 : 0;
+        System.out.println("Equal: " + equal);
+        int notEqual = (a != b) ? 1 : 0;
+        System.out.println("Not Equal: " + notEqual);
+        int greaterThan = (a > b) ? 1 : 0;
+        System.out.println("Greater Than: " + greaterThan);
+        int lessThan = (a < b) ? 1 : 0;
+        System.out.println("Less Than: " + lessThan);
+        int greaterThanOrEqual = (a >= b) ? 1 : 0;
+        System.out.println("Greater Than or Equal: " + greaterThanOrEqual);
+    }
+}
