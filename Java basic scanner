@@ -1,0 +1,23 @@
+public class Scanner {
+    public static void main(String[] args) {
+        try (java.util.Scanner sc = new java.util.Scanner(System.in)) {
+            System.out.println("Enter a number: ");
+            int n = sc.nextInt();
+            System.out.println("You entered: " + n);
+            int sum = 0;
+            for (int i = 1; i <= n; i++) {
+                sum += i;
+            }
+            System.out.println("Sum of numbers from 1 to " + n + " is: " + sum);
+            String str = sc.nextLine(); 
+            System.out.print("Enter a string: ");
+            str = sc.nextLine();
+            System.out.println("You entered: " + str);
+            String nestedStr = sc.nextLine();
+            System.out.print("Enter a nested string: ");
+            nestedStr = sc.nextLine();
+            System.out.println("You entered: " + nestedStr);
+            System.out.println("This is a test message.");
+        }
+    }
+}
