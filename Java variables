@@ -1,0 +1,22 @@
+public class Variables {
+    public static void main(String [] args) {
+        byte age = 5;               
+        int phone = 5455454;   
+        long ageLong = 53;         
+        boolean myBool = true;   
+        String myText = "Hello";  
+        char myChar = 'A';   
+        System.out.println(age);
+        System.out.println(phone);
+        System.out.println(ageLong);
+        System.out.println(myBool);
+        System.out.println(myText);
+        System.out.println(myChar);
+        System.out.println("The value of age is: " + age);
+        System.out.println("The value of phone is: " + phone);
+        System.out.println("The value of ageLong is: " + ageLong);
+        System.out.println("The value of myBool is: " + myBool);
+        System.out.println("The value of myText is: " + myText);
+        System.out.println("The value of myChar is: " + myChar);
+    }
+}
