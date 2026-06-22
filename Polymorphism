@@ -1,0 +1,25 @@
+class Student {
+    String name;
+    int age;
+    float height;
+    public void printInfo(String name) {
+        System.out.println("Name: " + name);
+    }
+    public void printInfo(int age) {
+        System.out.println("Age: " + age);
+    }
+    public void printInfo(float height) {
+        System.out.println("Height: " + height);
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Student s1 = new Student();
+        s1.name = "Ramesh";
+        s1.age = 76;
+        s1.height = 987.0f; 
+        s1.printInfo(s1.name);
+        s1.printInfo(s1.age);
+        s1.printInfo(s1.height);
+    }
+}
