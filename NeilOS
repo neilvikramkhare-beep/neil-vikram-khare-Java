@@ -1,0 +1,939 @@
+package com.NeilJava.NeilOS;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.*;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.lang.management.ManagementFactory;
+import java.net.InetAddress;
+import java.util.*;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+
+@SpringBootApplication
+@RestController
+@RequestMapping("/api")
+@CrossOrigin(origins = "*")
+public class NeilOS {
+
+    // =========================
+    // IN-MEMORY DATABASES
+    // =========================
+
+    private final Map<String, Integer> users = new ConcurrentHashMap<>();
+    private final List<String> files = Collections.synchronizedList(new ArrayList<>());
+    private final List<Map<String, Object>> patients = Collections.synchronizedList(new ArrayList<>());
+
+    // =========================
+    // MAIN METHOD
+    // =========================
+
+    public static void main(String[] args) {
+        // Start Spring Boot
+        SpringApplication.run(NeilOS.class, args);
+        
+        // Launch Graphics
+        SwingUtilities.invokeLater(() -> new NeilOS().createAndShowGUI());
+    }
+
+    // =========================
+    // GRAPHICAL USER INTERFACE
+    // =========================
+
+    private void createAndShowGUI() {
+        // Main Frame
+        JFrame frame = new JFrame("NeilOS Ultimate");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(900, 700);
+        frame.setLayout(new BorderLayout());
+        frame.setBackground(new Color(30, 30, 40));
+
+        // Title Panel
+        JPanel titlePanel = new JPanel();
+        titlePanel.setBackground(new Color(50, 50, 70));
+        JLabel titleLabel = new JLabel("🚀 NEILOS ULTIMATE");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 28));
+        titleLabel.setForeground(Color.CYAN);
+        titlePanel.add(titleLabel);
+        frame.add(titlePanel, BorderLayout.NORTH);
+
+        // Main Panel with Tabs
+        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane.setFont(new Font("Arial", Font.PLAIN, 14));
+        tabbedPane.setBackground(new Color(40, 40, 60));
+        tabbedPane.setForeground(Color.WHITE);
+
+        // 1. Dashboard Tab
+        tabbedPane.addTab("📊 Dashboard", createDashboardPanel());
+
+        // 2. Banking Tab
+        tabbedPane.addTab("💰 Banking", createBankingPanel());
+
+        // 3. File Manager Tab
+        tabbedPane.addTab("📁 Files", createFileManagerPanel());
+
+        // 4. Terminal Tab
+        tabbedPane.addTab("💻 Terminal", createTerminalPanel());
+
+        // 5. AI Assistant Tab
+        tabbedPane.addTab("🤖 AI", createAIPanel());
+
+        // 6. Cybersecurity Tab
+        tabbedPane.addTab("🔒 Security", createSecurityPanel());
+
+        // 7. Clinic Tab
+        tabbedPane.addTab("🏥 Clinic", createClinicPanel());
+
+        // 8. System Monitor Tab
+        tabbedPane.addTab("📈 Monitor", createMonitorPanel());
+
+        frame.add(tabbedPane, BorderLayout.CENTER);
+
+        // Status Bar
+        JPanel statusBar = new JPanel();
+        statusBar.setBackground(new Color(40, 40, 60));
+        JLabel statusLabel = new JLabel("🟢 System Online | NeilOS v1.0");
+        statusLabel.setForeground(Color.GREEN);
+        statusBar.add(statusLabel);
+        frame.add(statusBar, BorderLayout.SOUTH);
+
+        frame.setVisible(true);
+    }
+
+    // =========================
+    // DASHBOARD PANEL
+    // =========================
+
+    private JPanel createDashboardPanel() {
+        JPanel panel = new JPanel(new GridLayout(3, 3, 15, 15));
+        panel.setBackground(new Color(30, 30, 40));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        String[][] stats = {
+            {"🖥️", "System Status", "Running"},
+            {"👥", "Active Users", String.valueOf(users.size())},
+            {"📁", "Total Files", String.valueOf(files.size())},
+            {"🏥", "Patients", String.valueOf(patients.size())},
+            {"🧠", "AI Status", "Ready"},
+            {"🔒", "Firewall", "Active"},
+            {"💾", "Memory Free", formatMemory(Runtime.getRuntime().freeMemory())},
+            {"📡", "API Status", "Online"},
+            {"⚡", "Uptime", formatUptime()}
+        };
+
+        for (String[] stat : stats) {
+            JPanel card = new JPanel();
+            card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+            card.setBackground(new Color(60, 60, 80));
+            card.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 130), 2));
+            card.setPreferredSize(new Dimension(200, 100));
+
+            JLabel iconLabel = new JLabel(stat[0]);
+            iconLabel.setFont(new Font("Segoe UI", Font.PLAIN, 30));
+            iconLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            JLabel titleLabel = new JLabel(stat[1]);
+            titleLabel.setFont(new Font("Arial", Font.BOLD, 14));
+            titleLabel.setForeground(Color.LIGHT_GRAY);
+            titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            JLabel valueLabel = new JLabel(stat[2]);
+            valueLabel.setFont(new Font("Arial", Font.BOLD, 18));
+            valueLabel.setForeground(Color.CYAN);
+            valueLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            card.add(Box.createVerticalGlue());
+            card.add(iconLabel);
+            card.add(titleLabel);
+            card.add(valueLabel);
+            card.add(Box.createVerticalGlue());
+
+            panel.add(card);
+        }
+
+        return panel;
+    }
+
+    // =========================
+    // BANKING PANEL
+    // =========================
+
+    private JPanel createBankingPanel() {
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+        panel.setBackground(new Color(30, 30, 40));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        // Input Panel
+        JPanel inputPanel = new JPanel(new GridLayout(3, 2, 10, 10));
+        inputPanel.setBackground(new Color(30, 30, 40));
+        inputPanel.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createLineBorder(Color.CYAN),
+            "Banking Operations",
+            TitledBorder.CENTER,
+            TitledBorder.TOP,
+            new Font("Arial", Font.BOLD, 16),
+            Color.CYAN
+        ));
+
+        JLabel userLabel = new JLabel("Username:");
+        userLabel.setForeground(Color.WHITE);
+        JTextField userField = new JTextField(15);
+
+        JLabel amountLabel = new JLabel("Amount:");
+        amountLabel.setForeground(Color.WHITE);
+        JTextField amountField = new JTextField(15);
+
+        inputPanel.add(userLabel);
+        inputPanel.add(userField);
+        inputPanel.add(amountLabel);
+        inputPanel.add(amountField);
+
+        JButton depositBtn = new JButton("💰 Deposit");
+        depositBtn.setBackground(new Color(0, 150, 0));
+        depositBtn.setForeground(Color.WHITE);
+        depositBtn.setFont(new Font("Arial", Font.BOLD, 14));
+
+        JButton withdrawBtn = new JButton("💳 Withdraw");
+        withdrawBtn.setBackground(new Color(200, 50, 50));
+        withdrawBtn.setForeground(Color.WHITE);
+        withdrawBtn.setFont(new Font("Arial", Font.BOLD, 14));
+
+        inputPanel.add(depositBtn);
+        inputPanel.add(withdrawBtn);
+
+        panel.add(inputPanel, BorderLayout.NORTH);
+
+        // Output Area
+        JTextArea outputArea = new JTextArea();
+        outputArea.setBackground(new Color(20, 20, 30));
+        outputArea.setForeground(Color.GREEN);
+        outputArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        outputArea.setEditable(false);
+        outputArea.setText("Welcome to NeilOS Banking System\n");
+
+        JScrollPane scrollPane = new JScrollPane(outputArea);
+        scrollPane.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createLineBorder(Color.GREEN),
+            "Transaction History",
+            TitledBorder.CENTER,
+            TitledBorder.TOP,
+            new Font("Arial", Font.BOLD, 14),
+            Color.GREEN
+        ));
+        panel.add(scrollPane, BorderLayout.CENTER);
+
+        // Action Listeners
+        depositBtn.addActionListener(e -> {
+            try {
+                String user = userField.getText().trim();
+                int amount = Integer.parseInt(amountField.getText().trim());
+                if (user.isEmpty() || amount <= 0) {
+                    outputArea.append("❌ Invalid input!\n");
+                    return;
+                }
+                users.putIfAbsent(user, 0);
+                users.put(user, users.get(user) + amount);
+                outputArea.append("✅ Deposited $" + amount + " to " + user + 
+                                 " | Balance: $" + users.get(user) + "\n");
+            } catch (NumberFormatException ex) {
+                outputArea.append("❌ Please enter a valid number!\n");
+            }
+        });
+
+        withdrawBtn.addActionListener(e -> {
+            try {
+                String user = userField.getText().trim();
+                int amount = Integer.parseInt(amountField.getText().trim());
+                if (user.isEmpty() || amount <= 0) {
+                    outputArea.append("❌ Invalid input!\n");
+                    return;
+                }
+                users.putIfAbsent(user, 0);
+                int balance = users.get(user);
+                if (balance < amount) {
+                    outputArea.append("❌ Insufficient balance for " + user + "\n");
+                } else {
+                    users.put(user, balance - amount);
+                    outputArea.append("💳 Withdrew $" + amount + " from " + user + 
+                                    " | Balance: $" + users.get(user) + "\n");
+                }
+            } catch (NumberFormatException ex) {
+                outputArea.append("❌ Please enter a valid number!\n");
+            }
+        });
+
+        // Show user list button
+        JButton listBtn = new JButton("👥 Show Users");
+        listBtn.setBackground(new Color(100, 100, 200));
+        listBtn.setForeground(Color.WHITE);
+        listBtn.setFont(new Font("Arial", Font.BOLD, 14));
+        
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(new Color(30, 30, 40));
+        buttonPanel.add(listBtn);
+        panel.add(buttonPanel, BorderLayout.SOUTH);
+
+        listBtn.addActionListener(e -> {
+            outputArea.append("\n--- Users List ---\n");
+            if (users.isEmpty()) {
+                outputArea.append("No users registered.\n");
+            } else {
+                for (Map.Entry<String, Integer> entry : users.entrySet()) {
+                    outputArea.append("👤 " + entry.getKey() + " | Balance: $" + entry.getValue() + "\n");
+                }
+            }
+            outputArea.append("-----------------\n");
+        });
+
+        return panel;
+    }
+
+    // =========================
+    // FILE MANAGER PANEL
+    // =========================
+
+    private JPanel createFileManagerPanel() {
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+        panel.setBackground(new Color(30, 30, 40));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        // Input Panel
+        JPanel inputPanel = new JPanel(new FlowLayout());
+        inputPanel.setBackground(new Color(30, 30, 40));
+        JTextField fileField = new JTextField(20);
+        JButton createBtn = new JButton("📄 Create File");
+        createBtn.setBackground(new Color(0, 120, 200));
+        createBtn.setForeground(Color.WHITE);
+        createBtn.setFont(new Font("Arial", Font.BOLD, 14));
+
+        inputPanel.add(new JLabel("Filename:").setForeground(Color.WHITE));
+        inputPanel.add(fileField);
+        inputPanel.add(createBtn);
+
+        panel.add(inputPanel, BorderLayout.NORTH);
+
+        // File List
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        JList<String> fileList = new JList<>(listModel);
+        fileList.setBackground(new Color(20, 20, 30));
+        fileList.setForeground(Color.CYAN);
+        fileList.setFont(new Font("Monospaced", Font.PLAIN, 14));
+
+        JScrollPane scrollPane = new JScrollPane(fileList);
+        scrollPane.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createLineBorder(Color.CYAN),
+            "File System",
+            TitledBorder.CENTER,
+            TitledBorder.TOP,
+            new Font("Arial", Font.BOLD, 14),
+            Color.CYAN
+        ));
+        panel.add(scrollPane, BorderLayout.CENTER);
+
+        createBtn.addActionListener(e -> {
+            String filename = fileField.getText().trim();
+            if (!filename.isEmpty()) {
+                files.add(filename);
+                listModel.addElement(filename);
+                fileField.setText("");
+            }
+        });
+
+        // Refresh button
+        JButton refreshBtn = new JButton("🔄 Refresh");
+        refreshBtn.setBackground(new Color(100, 100, 200));
+        refreshBtn.setForeground(Color.WHITE);
+        refreshBtn.setFont(new Font("Arial", Font.BOLD, 14));
+
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setBackground(new Color(30, 30, 40));
+        bottomPanel.add(refreshBtn);
+        panel.add(bottomPanel, BorderLayout.SOUTH);
+
+        refreshBtn.addActionListener(e -> {
+            listModel.clear();
+            for (String file : files) {
+                listModel.addElement(file);
+            }
+        });
+
+        return panel;
+    }
+
+    // =========================
+    // TERMINAL PANEL
+    // =========================
+
+    private JPanel createTerminalPanel() {
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+        panel.setBackground(new Color(30, 30, 40));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        // Terminal Output
+        JTextArea terminalArea = new JTextArea(20, 50);
+        terminalArea.setBackground(new Color(0, 0, 0));
+        terminalArea.setForeground(new Color(0, 255, 0));
+        terminalArea.setFont(new Font("Monospaced", Font.BOLD, 14));
+        terminalArea.setEditable(false);
+        terminalArea.setText("NeilOS Terminal v1.0\nType 'help' for commands\n\n");
+
+        JScrollPane scrollPane = new JScrollPane(terminalArea);
+        scrollPane.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+        panel.add(scrollPane, BorderLayout.CENTER);
+
+        // Command Input
+        JPanel commandPanel = new JPanel(new BorderLayout(5, 5));
+        commandPanel.setBackground(new Color(30, 30, 40));
+        
+        JTextField commandField = new JTextField();
+        commandField.setBackground(new Color(0, 0, 0));
+        commandField.setForeground(Color.GREEN);
+        commandField.setFont(new Font("Monospaced", Font.BOLD, 14));
+        
+        JButton execBtn = new JButton("▶ Execute");
+        execBtn.setBackground(new Color(0, 120, 0));
+        execBtn.setForeground(Color.WHITE);
+        execBtn.setFont(new Font("Arial", Font.BOLD, 14));
+
+        commandPanel.add(commandField, BorderLayout.CENTER);
+        commandPanel.add(execBtn, BorderLayout.EAST);
+        panel.add(commandPanel, BorderLayout.SOUTH);
+
+        // Terminal command execution
+        ActionListener executeCommand = e -> {
+            String cmd = commandField.getText().trim().toLowerCase();
+            if (cmd.isEmpty()) return;
+
+            terminalArea.append("> " + cmd + "\n");
+            
+            String output;
+            switch (cmd) {
+                case "help":
+                    output = "Available commands:\n" +
+                             "  help     - Show this help\n" +
+                             "  dir      - List files\n" +
+                             "  files    - List files\n" +
+                             "  version  - Show version\n" +
+                             "  clear    - Clear terminal\n" +
+                             "  status   - Show system status\n" +
+                             "  users    - List bank users\n";
+                    break;
+                case "dir":
+                case "files":
+                    output = files.isEmpty() ? "No files found." : String.join("\n", files);
+                    break;
+                case "version":
+                    output = "NeilOS Java Backend v1.0 with Graphics";
+                    break;
+                case "clear":
+                    terminalArea.setText("NeilOS Terminal v1.0\nType 'help' for commands\n\n");
+                    commandField.setText("");
+                    return;
+                case "status":
+                    output = "System: Online\n" +
+                             "Users: " + users.size() + "\n" +
+                             "Files: " + files.size() + "\n" +
+                             "Memory: " + formatMemory(Runtime.getRuntime().freeMemory());
+                    break;
+                case "users":
+                    if (users.isEmpty()) {
+                        output = "No users registered.";
+                    } else {
+                        StringBuilder sb = new StringBuilder("Users:\n");
+                        for (Map.Entry<String, Integer> entry : users.entrySet()) {
+                            sb.append("  ").append(entry.getKey()).append(": $").append(entry.getValue()).append("\n");
+                        }
+                        output = sb.toString();
+                    }
+                    break;
+                default:
+                    output = "❌ Unknown command: " + cmd + "\nType 'help' for available commands";
+            }
+            
+            terminalArea.append(output + "\n\n");
+            commandField.setText("");
+            terminalArea.setCaretPosition(terminalArea.getDocument().getLength());
+        };
+
+        execBtn.addActionListener(executeCommand);
+        commandField.addActionListener(executeCommand);
+
+        return panel;
+    }
+
+    // =========================
+    // AI ASSISTANT PANEL
+    // =========================
+
+    private JPanel createAIPanel() {
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+        panel.setBackground(new Color(30, 30, 40));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        // AI Avatar
+        JPanel headerPanel = new JPanel();
+        headerPanel.setBackground(new Color(30, 30, 40));
+        JLabel avatarLabel = new JLabel("🤖 NEIL AI ASSISTANT");
+        avatarLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        avatarLabel.setForeground(Color.CYAN);
+        headerPanel.add(avatarLabel);
+        panel.add(headerPanel, BorderLayout.NORTH);
+
+        // Chat Area
+        JTextArea chatArea = new JTextArea(15, 50);
+        chatArea.setBackground(new Color(20, 20, 30));
+        chatArea.setForeground(Color.WHITE);
+        chatArea.setFont(new Font("Arial", Font.PLAIN, 14));
+        chatArea.setEditable(false);
+        chatArea.setText("🤖 AI Assistant Ready!\n" +
+                        "Commands: hello, scan, bank, help, weather, time\n\n");
+
+        JScrollPane scrollPane = new JScrollPane(chatArea);
+        scrollPane.setBorder(BorderFactory.createLineBorder(new Color(0, 200, 255)));
+        panel.add(scrollPane, BorderLayout.CENTER);
+
+        // Input Panel
+        JPanel inputPanel = new JPanel(new BorderLayout(5, 5));
+        inputPanel.setBackground(new Color(30, 30, 40));
+        
+        JTextField aiInput = new JTextField();
+        aiInput.setBackground(new Color(20, 20, 30));
+        aiInput.setForeground(Color.WHITE);
+        aiInput.setFont(new Font("Arial", Font.PLAIN, 14));
+        
+        JButton sendBtn = new JButton("📤 Send");
+        sendBtn.setBackground(new Color(0, 150, 200));
+        sendBtn.setForeground(Color.WHITE);
+        sendBtn.setFont(new Font("Arial", Font.BOLD, 14));
+
+        inputPanel.add(aiInput, BorderLayout.CENTER);
+        inputPanel.add(sendBtn, BorderLayout.EAST);
+        panel.add(inputPanel, BorderLayout.SOUTH);
+
+        // AI Response
+        ActionListener aiAction = e -> {
+            String message = aiInput.getText().trim();
+            if (message.isEmpty()) return;
+            
+            chatArea.append("👤 You: " + message + "\n");
+            
+            String response = "🤖 Neil AI: ";
+            String msgLower = message.toLowerCase();
+            
+            if (msgLower.contains("hello") || msgLower.contains("hi")) {
+                response += "Hello user! How can I assist you today? 😊";
+            } else if (msgLower.contains("scan") || msgLower.contains("security")) {
+                response += "🔒 Opening Cyber Security Center... System is secure!";
+            } else if (msgLower.contains("bank")) {
+                response += "💰 Opening Banking System... Access granted!";
+            } else if (msgLower.contains("help")) {
+                response += "💡 Available commands: hello, scan, bank, weather, time, status, clear";
+            } else if (msgLower.contains("weather")) {
+                response += "🌤️ Weather in NeilOS City: 72°F, Partly Cloudy";
+            } else if (msgLower.contains("time")) {
+                response += "🕐 " + new Date().toString();
+            } else if (msgLower.contains("clear")) {
+                chatArea.setText("");
+                aiInput.setText("");
+                return;
+            } else if (msgLower.contains("status")) {
+                response += "🟢 System Online | Users: " + users.size() + 
+                           " | Files: " + files.size();
+            } else {
+                response += "I didn't understand. Try: hello, scan, bank, weather, time, help";
+            }
+            
+            chatArea.append(response + "\n\n");
+            aiInput.setText("");
+            chatArea.setCaretPosition(chatArea.getDocument().getLength());
+        };
+
+        sendBtn.addActionListener(aiAction);
+        aiInput.addActionListener(aiAction);
+
+        return panel;
+    }
+
+    // =========================
+    // SECURITY PANEL
+    // =========================
+
+    private JPanel createSecurityPanel() {
+        JPanel panel = new JPanel(new GridLayout(3, 2, 15, 15));
+        panel.setBackground(new Color(30, 30, 40));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        String[][] securityItems = {
+            {"🛡️", "Firewall", "ACTIVE", Color.GREEN},
+            {"🔑", "Encryption", "AES-256", Color.CYAN},
+            {"🦠", "Anti-Virus", "Up to Date", Color.GREEN},
+            {"🌐", "Network", "Secure", Color.GREEN},
+            {"📡", "Intrusion Detection", "Monitoring", Color.YELLOW},
+            {"🔒", "Threat Level", "LOW", Color.GREEN}
+        };
+
+        for (String[] item : securityItems) {
+            JPanel card = new JPanel(new BorderLayout());
+            card.setBackground(new Color(50, 50, 70));
+            card.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 130), 2));
+            
+            JLabel iconLabel = new JLabel(item[0] + " " + item[1]);
+            iconLabel.setFont(new Font("Arial", Font.BOLD, 16));
+            iconLabel.setForeground(Color.WHITE);
+            
+            JLabel statusLabel = new JLabel(item[2]);
+            Color color;
+            switch (item[3].toString()) {
+                case "GREEN": color = Color.GREEN; break;
+                case "CYAN": color = Color.CYAN; break;
+                case "YELLOW": color = Color.YELLOW; break;
+                default: color = Color.WHITE;
+            }
+            statusLabel.setForeground(color);
+            statusLabel.setFont(new Font("Arial", Font.BOLD, 18));
+            statusLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+            
+            card.add(iconLabel, BorderLayout.WEST);
+            card.add(statusLabel, BorderLayout.EAST);
+            panel.add(card);
+        }
+
+        return panel;
+    }
+
+    // =========================
+    // CLINIC PANEL
+    // =========================
+
+    private JPanel createClinicPanel() {
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+        panel.setBackground(new Color(30, 30, 40));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        // Input Panel
+        JPanel inputPanel = new JPanel(new GridLayout(4, 2, 10, 10));
+        inputPanel.setBackground(new Color(30, 30, 40));
+        inputPanel.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createLineBorder(new Color(0, 200, 100)),
+            "Add Patient",
+            TitledBorder.CENTER,
+            TitledBorder.TOP,
+            new Font("Arial", Font.BOLD, 14),
+            new Color(0, 200, 100)
+        ));
+
+        JTextField nameField = new JTextField();
+        JTextField ageField = new JTextField();
+        JTextField ailmentField = new JTextField();
+        JTextField contactField = new JTextField();
+
+        inputPanel.add(new JLabel("Name:").setForeground(Color.WHITE));
+        inputPanel.add(nameField);
+        inputPanel.add(new JLabel("Age:").setForeground(Color.WHITE));
+        inputPanel.add(ageField);
+        inputPanel.add(new JLabel("Ailment:").setForeground(Color.WHITE));
+        inputPanel.add(ailmentField);
+        inputPanel.add(new JLabel("Contact:").setForeground(Color.WHITE));
+        inputPanel.add(contactField);
+
+        panel.add(inputPanel, BorderLayout.NORTH);
+
+        // Patient List
+        DefaultListModel<String> patientModel = new DefaultListModel<>();
+        JList<String> patientList = new JList<>(patientModel);
+        patientList.setBackground(new Color(20, 20, 30));
+        patientList.setForeground(new Color(0, 200, 100));
+        patientList.setFont(new Font("Monospaced", Font.PLAIN, 14));
+
+        JScrollPane scrollPane = new JScrollPane(patientList);
+        scrollPane.setBorder(BorderFactory.createTitledBorder(
+            BorderFactory.createLineBorder(new Color(0, 200, 100)),
+            "Patient Records",
+            TitledBorder.CENTER,
+            TitledBorder.TOP,
+            new Font("Arial", Font.BOLD, 14),
+            new Color(0, 200, 100)
+        ));
+        panel.add(scrollPane, BorderLayout.CENTER);
+
+        // Buttons
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+        buttonPanel.setBackground(new Color(30, 30, 40));
+
+        JButton addBtn = new JButton("➕ Add Patient");
+        addBtn.setBackground(new Color(0, 150, 0));
+        addBtn.setForeground(Color.WHITE);
+        addBtn.setFont(new Font("Arial", Font.BOLD, 14));
+
+        JButton refreshBtn = new JButton("🔄 Refresh");
+        refreshBtn.setBackground(new Color(100, 100, 200));
+        refreshBtn.setForeground(Color.WHITE);
+        refreshBtn.setFont(new Font("Arial", Font.BOLD, 14));
+
+        buttonPanel.add(addBtn);
+        buttonPanel.add(refreshBtn);
+        panel.add(buttonPanel, BorderLayout.SOUTH);
+
+        addBtn.addActionListener(e -> {
+            String name = nameField.getText().trim();
+            String age = ageField.getText().trim();
+            String ailment = ailmentField.getText().trim();
+            String contact = contactField.getText().trim();
+
+            if (!name.isEmpty() && !age.isEmpty()) {
+                Map<String, Object> patient = new HashMap<>();
+                patient.put("name", name);
+                patient.put("age", age);
+                patient.put("ailment", ailment);
+                patient.put("contact", contact);
+                patients.add(patient);
+                
+                patientModel.addElement(name + " | Age: " + age + " | " + ailment);
+                
+                nameField.setText("");
+                ageField.setText("");
+                ailmentField.setText("");
+                contactField.setText("");
+            }
+        });
+
+        refreshBtn.addActionListener(e -> {
+            patientModel.clear();
+            for (Map<String, Object> p : patients) {
+                patientModel.addElement(p.get("name") + " | Age: " + p.get("age") + 
+                                      " | " + p.get("ailment"));
+            }
+        });
+
+        return panel;
+    }
+
+    // =========================
+    // MONITOR PANEL
+    // =========================
+
+    private JPanel createMonitorPanel() {
+        JPanel panel = new JPanel(new GridLayout(4, 2, 15, 15));
+        panel.setBackground(new Color(30, 30, 40));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        Runtime runtime = Runtime.getRuntime();
+        long uptime = ManagementFactory.getRuntimeMXBean().getUptime();
+
+        String[][] monitorData = {
+            {"⏱️ Uptime", formatUptime()},
+            {"💾 Free Memory", formatMemory(runtime.freeMemory())},
+            {"📀 Total Memory", formatMemory(runtime.totalMemory())},
+            {"⚙️ Processors", String.valueOf(runtime.availableProcessors())},
+            {"🔄 Max Memory", formatMemory(runtime.maxMemory())},
+            {"📊 Used Memory", formatMemory(runtime.totalMemory() - runtime.freeMemory())},
+            {"📡 API Status", "Online"},
+            {"🚀 System", System.getProperty("os.name")}
+        };
+
+        for (String[] data : monitorData) {
+            JPanel card = new JPanel(new BorderLayout(10, 5));
+            card.setBackground(new Color(50, 50, 70));
+            card.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 130), 2));
+            
+            JLabel label = new JLabel(data[0]);
+            label.setFont(new Font("Arial", Font.BOLD, 16));
+            label.setForeground(Color.WHITE);
+            
+            JLabel value = new JLabel(data[1]);
+            value.setFont(new Font("Arial", Font.BOLD, 18));
+            value.setForeground(Color.CYAN);
+            value.setHorizontalAlignment(SwingConstants.RIGHT);
+            
+            card.add(label, BorderLayout.WEST);
+            card.add(value, BorderLayout.EAST);
+            panel.add(card);
+        }
+
+        return panel;
+    }
+
+    // =========================
+    // HELPER METHODS
+    // =========================
+
+    private String formatMemory(long bytes) {
+        if (bytes < 1024) return bytes + " B";
+        if (bytes < 1024 * 1024) return (bytes / 1024) + " KB";
+        if (bytes < 1024 * 1024 * 1024) return (bytes / (1024 * 1024)) + " MB";
+        return (bytes / (1024 * 1024 * 1024)) + " GB";
+    }
+
+    private String formatUptime() {
+        long uptime = ManagementFactory.getRuntimeMXBean().getUptime();
+        long seconds = uptime / 1000;
+        long minutes = seconds / 60;
+        long hours = minutes / 60;
+        long days = hours / 24;
+        
+        if (days > 0) return days + "d " + (hours % 24) + "h";
+        if (hours > 0) return hours + "h " + (minutes % 60) + "m";
+        if (minutes > 0) return minutes + "m " + (seconds % 60) + "s";
+        return seconds + "s";
+    }
+
+    // =========================
+    // REST API ENDPOINTS
+    // =========================
+
+    @GetMapping("/")
+    public Map<String, Object> root() {
+        Map<String, Object> res = new HashMap<>();
+        res.put("system", "NeilOS");
+        res.put("status", "running");
+        return res;
+    }
+
+    @GetMapping("/bank/{user}")
+    public Map<String, Object> balance(@PathVariable String user) {
+        users.putIfAbsent(user, 0);
+        Map<String, Object> res = new HashMap<>();
+        res.put("user", user);
+        res.put("balance", users.get(user));
+        return res;
+    }
+
+    @PostMapping("/deposit")
+    public Map<String, Object> deposit(@RequestBody Map<String, Object> req) {
+        String user = (String) req.get("user");
+        int amount = ((Number) req.get("amount")).intValue();
+        users.putIfAbsent(user, 0);
+        users.put(user, users.get(user) + amount);
+        return Map.of("status", "deposited", "balance", users.get(user));
+    }
+
+    @PostMapping("/withdraw")
+    public Map<String, Object> withdraw(@RequestBody Map<String, Object> req) {
+        String user = (String) req.get("user");
+        int amount = ((Number) req.get("amount")).intValue();
+        users.putIfAbsent(user, 0);
+        int balance = users.get(user);
+        if (balance < amount) {
+            return Map.of("error", "insufficient balance");
+        }
+        users.put(user, balance - amount);
+        return Map.of("status", "withdrawn", "balance", users.get(user));
+    }
+
+    @GetMapping("/files")
+    public Map<String, Object> getFiles() {
+        return Map.of("files", files);
+    }
+
+    @PostMapping("/files/create")
+    public Map<String, Object> createFile(@RequestBody Map<String, Object> req) {
+        String filename = (String) req.get("filename");
+        files.add(filename);
+        return Map.of("status", "created");
+    }
+
+    @PostMapping("/terminal")
+    public Map<String, Object> terminal(@RequestBody Map<String, Object> req) {
+        String cmd = ((String) req.get("command")).toLowerCase();
+        String output;
+        switch (cmd) {
+            case "help":
+                output = "help dir files version clear";
+                break;
+            case "dir":
+            case "files":
+                output = String.join("\n", files);
+                break;
+            case "version":
+                output = "NeilOS Java Backend v1.0";
+                break;
+            case "clear":
+                output = "";
+                break;
+            default:
+                output = "Unknown command";
+        }
+        return Map.of("output", output);
+    }
+
+    @PostMapping("/ai")
+    public Map<String, Object> ai(@RequestBody Map<String, Object> req) {
+        String message = ((String) req.get("message")).toLowerCase();
+        String response = "AI Ready";
+        if (message.contains("hello")) response = "Hello User";
+        if (message.contains("scan")) response = "Opening Cyber Security Center";
+        if (message.contains("bank")) response = "Opening Banking System";
+        return Map.of("response", response);
+    }
+
+    @PostMapping("/cyber/scan")
+    public Map<String, Object> scan(@RequestBody Map<String, Object> req) {
+        String ip = (String) req.get("ip");
+        return Map.of("target", ip, "firewall", "active", 
+                     "ports", Arrays.asList(22, 80, 443), 
+                     "threatLevel", "low", "status", "secure");
+    }
+
+    @GetMapping("/cyber/threats")
+    public Map<String, Object> threats() {
+        return Map.of("level", "low", "attacks", 0, "firewall", "enabled");
+    }
+
+    @PostMapping("/clinic/add")
+    public Map<String, Object> addPatient(@RequestBody Map<String, Object> req) {
+        patients.add(req);
+        return Map.of("status", "patient added");
+    }
+
+    @GetMapping("/clinic/list")
+    public List<Map<String, Object>> clinicList() {
+        return patients;
+    }
+
+    @GetMapping("/social/groups")
+    public Map<String, Object> groups() {
+        return Map.of("groups", Arrays.asList(Arrays.asList(1), Arrays.asList(0, 2), Arrays.asList(1)));
+    }
+
+    @GetMapping("/social/recommend")
+    public Map<String, Object> recommend() {
+        return Map.of("user", "cyber_user");
+    }
+
+    @GetMapping("/network")
+    public Map<String, Object> network() throws Exception {
+        String hostname = InetAddress.getLocalHost().getHostName();
+        String ip = InetAddress.getLocalHost().getHostAddress();
+        return Map.of("hostname", hostname, "ip", ip, "gateway", "active", "dns", "connected");
+    }
+
+    @PostMapping("/deploy")
+    public Map<String, Object> deploy() {
+        return Map.of("status", "ISO generation started", "file", "NeilOS.iso");
+    }
+
+    @GetMapping("/kernel")
+    public Map<String, Object> kernel() {
+        return Map.of("kernel", "NeilOS Kernel v1.0", 
+                     "arch", System.getProperty("os.arch"),
+                     "os", System.getProperty("os.name"));
+    }
+
+    @GetMapping("/monitor")
+    public Map<String, Object> monitor() {
+        Runtime runtime = Runtime.getRuntime();
+        long free = runtime.freeMemory();
+        long total = runtime.totalMemory();
+        long uptime = ManagementFactory.getRuntimeMXBean().getUptime();
+        return Map.of("uptimeMs", uptime, "freeMemory", free, 
+                     "totalMemory", total, "processors", runtime.availableProcessors());
+    }
+
+    @GetMapping("/status")
+    public Map<String, Object> status() {
+        return Map.of("status", "online", "message", "NeilOS API Running");
+    }
+}
