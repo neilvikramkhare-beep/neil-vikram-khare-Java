@@ -1,0 +1,31 @@
+abstract class Account {
+    public String name; 
+    private String password; 
+    protected String email; 
+    public String getPassword() { 
+        return this.password; 
+    } 
+    public void setPassword(String pass) { 
+        this.password = pass; 
+    } 
+} 
+class SBI extends Account { 
+    public void data() { 
+        int age = 78; 
+        String name = "Ram"; 
+        int balance = 87000; 
+        System.out.println(name); 
+        System.out.println(age); 
+        System.out.println(balance); 
+    } 
+} 
+class Bank extends SBI { 
+    public void showdata() {
+        SBI s = new SBI();  
+        s.data(); 
+    }
+    public static void main(String[] args) {
+        Bank b = new Bank();
+        b.showdata();
+    }
+}
