@@ -1,0 +1,58 @@
+public class Queues {
+    private int[] queue;
+    private int front;
+    private int rear;
+    private int capacity;
+    private int size;
+    public Queues(int capacity) {
+        this.capacity = capacity;
+        this.queue = new int[capacity];
+        this.front = 0;
+        this.rear = -1;
+        this.size = 0;
+    }
+    public void enqueue(int item) {
+        if (size == capacity) {
+            throw new IllegalStateException("Queue is full");
+        }
+        rear = (rear + 1) % capacity;
+        queue[rear] = item;
+        size++;
+    }
+    public int dequeue() {
+        if (size == 0) {
+            throw new IllegalStateException("Queue is empty");
+        }
+        int item = queue[front];
+        front = (front + 1) % capacity;
+        size--;
+        return item;
+    }
+    public int peek() {
+        if (size == 0) {
+            throw new IllegalStateException("Queue is empty");
+        }
+        return queue[front];
+    }
+    public boolean isEmpty() {
+        return size == 0;
+    }
+    public boolean isFull() {
+        return size == capacity;
+    }
+    public int getSize() {
+        return size;
+    }
+}
+class Main {
+    public static void main(String[] args) {
+        Queues queue = new Queues(5);
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
+        System.out.println("Front element: " + queue.peek());
+        System.out.println("Queue size: " + queue.getSize());
+        System.out.println("Dequeue: " + queue.dequeue());
+        System.out.println("Front element after dequeue: " + queue.peek());
+    }
+}
