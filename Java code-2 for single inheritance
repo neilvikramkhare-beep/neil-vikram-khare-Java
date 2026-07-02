@@ -1,0 +1,32 @@
+class School {
+    String name;
+    String address;
+    public School(String name, String address) {
+        this.name = name;
+        this.address = address;
+    }
+    public void displaySchoolInfo() {
+        System.out.println("School Name: " + name);
+        System.out.println("School Address: " + address);
+    }
+}
+ class Student extends School {
+    String studentName;
+    int studentId;
+    public Student(String schoolName, String schoolAddress, String studentName, int studentId) {
+        super(schoolName, schoolAddress);
+        this.studentName = studentName;
+        this.studentId = studentId;
+    }
+    public void displayStudentInfo() {
+        displaySchoolInfo();
+        System.out.println("Student Name: " + studentName);
+        System.out.println("Student ID: " + studentId);
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Student student = new Student("Greenwood High", "123 Main St", "John Doe", 101);
+        student.displayStudentInfo();
+    }
+}
