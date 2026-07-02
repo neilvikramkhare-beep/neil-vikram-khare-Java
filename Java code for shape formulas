@@ -1,0 +1,23 @@
+public class ShapeFormulas {
+    public static double areaOfCircle(double radius) {
+        return Math.PI * radius * radius;
+    }
+    public static double areaOfRectangle(double length, double width) {
+        return length * width;
+    }
+    public static double areaOfTriangle(double base, double height) {
+        return 0.5 * base * height;
+    }
+    public static double areaOfSquare(double side) {
+        return side * side;
+    }
+    public static double areaOfTrapezoid(double base1, double base2, double height) {
+        return 0.5 * (base1 + base2) * height;
+    }
+    public static double areaOfParallelogram(double base, double height) {
+        return base * height;
+    }
+    public static double areaOfEllipse(double semiMajorAxis, double semiMinorAxis) {
+        return Math.PI * semiMajorAxis * semiMinorAxis;
+    }
+}
