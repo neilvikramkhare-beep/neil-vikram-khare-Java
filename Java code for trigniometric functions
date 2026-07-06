@@ -1,0 +1,25 @@
+public class JavaTrignometricFunctions {
+    public static void main(String[] args) {
+        double angle = 45.0; 
+        double radians = Math.toRadians(angle);
+        double sine = Math.sin(radians);
+        double cosine = Math.cos(radians);
+        double tangent = Math.tan(radians);
+        double cosecant = 1.0 / sine;
+        double secant = 1.0 / cosine;
+        double cotangent = 1.0 / tangent;
+        double sineInverse = Math.asin(sine);
+        double cosineInverse = Math.acos(cosine);
+        double tangentInverse = Math.atan(tangent);
+        System.out.println("Angle: " + angle + " degrees");
+        System.out.println("Sine: " + sine);
+        System.out.println("Cosine: " + cosine);
+        System.out.println("Tangent: " + tangent);
+        System.out.println("Cosecant: " + cosecant);
+        System.out.println("Secant: " + secant);
+        System.out.println("Cotangent: " + cotangent);
+        System.out.println("Sine Inverse: " + Math.toDegrees(sineInverse) + " degrees");
+        System.out.println("Cosine Inverse: " + Math.toDegrees(cosineInverse) + " degrees");
+        System.out.println("Tangent Inverse: " + Math.toDegrees(tangentInverse) + " degrees");
+    }
+}
