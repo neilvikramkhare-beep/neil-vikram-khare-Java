@@ -30,6 +30,6 @@ public class HashMap {
         System.out.println(map.entrySet().stream().filter(e -> e.getKey().startsWith("key")).toList());
         System.out.println(map.keySet().stream().filter(k -> k.startsWith("key")).toList());
         System.out.println(map.values().stream().filter(v -> v.startsWith("value")).toList());
-        System.out.println(map.size());
+        System.out.println(map.filter());
     }
 }
