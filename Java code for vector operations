@@ -1,0 +1,89 @@
+import java.util.Vector;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+public class VectorOperationsDemo {
+    public static void main(String[] args) {
+        Vector<String> vec1 = new Vector<>();
+        Vector<String> vec2 = new Vector<>(20);
+        Vector<String> vec3 = new Vector<>(5, 2);
+        List<String> list = Arrays.asList("Apple", "Banana");
+        Vector<String> vec = new Vector<>(list);
+        System.out.println("Initial Vector: " + vec);
+        vec.add("Cherry");
+        vec.addElement("Date");
+        vec.add(1, "Blueberry");
+        ArrayList<String> modernFruits = new ArrayList<>(Arrays.asList("Elderberry", "Fig"));
+        vec.addAll(modernFruits);
+        vec.addAll(2, Arrays.asList("Grape", "Kiwi"));
+        System.out.println("\nAfter Additions: " + vec);
+        String fruitAt3 = vec.get(3);
+        String fruitAtElement = vec.elementAt(3);
+        String first = vec.firstElement();
+        String last = vec.lastElement();
+        System.out.println("\nAccess Examples:");
+        System.out.println("Element at index 3 (get/elementAt): " + fruitAt3);
+        System.out.println("First Element: " + first + " | Last Element: " + last);
+        boolean hasApple = vec.contains("Apple");
+        int firstIndex = vec.indexOf("Kiwi");
+        int searchFromIndex = vec.indexOf("Kiwi", 2);
+        int lastIndex = vec.lastIndexOf("Kiwi");
+        boolean containsAll = vec.containsAll(modernFruits);
+        System.out.println("\nSearch Examples:");
+        System.out.println("Contains 'Apple'?: " + hasApple);
+        System.out.println("First Index of 'Kiwi': " + firstIndex + " | Last Index: " + lastIndex);
+        String oldVal1 = vec.set(0, "Apricot");
+        vec.setElementAt("Blackberry", 1);
+        System.out.println("\nAfter Modifications: " + vec);
+        System.out.println("\nCapacity & Size Operations:");
+        System.out.println("Current Size (Element count): " + vec.size());
+        System.out.println("Current Capacity (Internal array size): " + vec.capacity());
+        vec.ensureCapacity(30);
+        vec.trimToSize();
+        System.out.println("Capacity after trimToSize(): " + vec.capacity());
+        vec.setSize(12);
+        System.out.println("Vector after setSize(12): " + vec);
+        vec.remove("Date");
+        vec.remove(2);
+        vec.removeElement("Apricot");
+        vec.removeElementAt(0);
+        vec.removeAll(modernFruits);
+        vec.retainAll(Arrays.asList("Grape", "Kiwi", null));
+        System.out.println("\nAfter Targeted Removals: " + vec);
+        vec.removeIf(element -> element == null); 
+        System.out.println("After removeIf (nulls removed): " + vec);
+        System.out.print("1. Enumeration: ");
+        Enumeration<String> en = vec.elements();
+        while (en.hasMoreElements()) {
+            System.out.print(en.nextElement() + " ");
+        }
+        System.out.println();
+        System.out.print("2. Iterator: ");
+        Iterator<String> it = vec.iterator();
+        while (it.hasNext()) {
+            System.out.print(it.next() + " ");
+        }
+        System.out.println();
+        System.out.print("3. ListIterator (Backwards): ");
+        ListIterator<String> lit = vec.listIterator(vec.size());
+        while (lit.hasPrevious()) {
+            System.out.print(lit.previous() + " ");
+        }
+        System.out.println();
+        System.out.print("4. ForEach Lambda: ");
+        vec.forEach(fruit -> System.out.print(fruit + " "));
+        System.out.println();
+        Vector<String> clonedVec = (Vector<String>) vec.clone();
+        String[] fruitArray = new String[vec.size()];
+        vec.copyInto(fruitArray);
+        Object[] objArray = vec.toArray();
+        vec.replaceAll(fruit -> fruit.toUpperCase());
+        System.out.println("\nAfter replaceAll (Uppercase): " + vec);
+        System.out.println("Is Vector empty?: " + vec.isEmpty());
+        vec.clear();
+        System.out.println("After clear(), Size is: " + vec.size());
+    }
+}
