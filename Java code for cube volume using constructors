@@ -1,0 +1,20 @@
+public class CubeConstructors {
+    public static class Cube {
+        private double sideLength;
+        public Cube() {
+            this.sideLength = 1.0; 
+        }
+        public Cube(double sideLength) {
+            this.sideLength = sideLength;
+        }
+        public double getVolume() {
+            return Math.pow(sideLength, 3);
+        }
+    }
+    public static void main(String[] args) {
+        Cube cube1 = new Cube();
+        System.out.println("Volume of cube1: " + cube1.getVolume());
+        Cube cube2 = new Cube(3);
+        System.out.println("Volume of cube2: " + cube2.getVolume());
+    }
+}
