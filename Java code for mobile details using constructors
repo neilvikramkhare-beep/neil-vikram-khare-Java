@@ -1,0 +1,29 @@
+public class MobileDetailsConstructors {
+    public static class MobileDetails
+    {
+        private String brand;
+        private String model;
+        private double price;
+        private int size;
+        public MobileDetails(String brand, String model, double price, int size) {
+            this.brand = brand;
+            this.model = model;
+            this.price = price;
+            this.size = size;
+        }
+        @Override
+        public String toString() {
+            return "MobileDetails{" +
+                    "brand='" + brand + '\'' +
+                    ", model='" + model + '\'' +
+                    ", price=" + price + '\'' +
+                    ", size=" + size +
+                    '}';
+        }
+    }
+    public static void main(String[] args)
+     {
+        MobileDetails mobile1 = new MobileDetails("Samsung", "Galaxy S21", 799.99, 6);
+        System.out.println(mobile1);
+    }
+}
