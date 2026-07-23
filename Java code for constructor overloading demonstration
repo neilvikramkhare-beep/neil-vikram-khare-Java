@@ -1,0 +1,23 @@
+class ConstructorOverloading { 
+    String name; 
+    int rollNumber; 
+    String department; 
+    int marks; 
+    public ConstructorOverloading() { 
+        name = "Unknown"; 
+        rollNumber = 0; 
+        department = "Unknown"; 
+        marks = 0; 
+    } 
+    public ConstructorOverloading(String name, int rollNumber, String department, int marks) { 
+        this.name = name; 
+        this.rollNumber = rollNumber; 
+        this.department = department; 
+        this.marks = marks; 
+    } 
+} 
+public class Main { 
+    public static void main(String[] args) { 
+        ConstructorOverloading s2 = new ConstructorOverloading("John", 101, "Computer Science", 85); 
+    } 
+}
