@@ -1,0 +1,32 @@
+class Vector
+{
+    private double[] elements;
+    private int size;
+    public Vector(int size) {
+        this.size = size;
+        elements = new double[size];
+    }
+    public void setElement(int index, double value) {
+        if (index >= 0 && index < size) {
+            elements[index] = value;
+        } else {
+            throw new IndexOutOfBoundsException("Index out of bounds");
+        }
+    }
+    public double getElement(int index) {
+        if (index >= 0 && index < size) {
+            return elements[index];
+        } else {
+            throw new IndexOutOfBoundsException("Index out of bounds");
+        }
+    }
+    public int getSize() {
+        return size;
+    }
+}
+public class JavaVectors {
+    public static void main(String[] args) {
+        Vector vector1 = new Vector(3);
+        vector1.setElement(0, 1.0);
+}
+}
