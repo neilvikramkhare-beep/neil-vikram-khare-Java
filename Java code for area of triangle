@@ -1,0 +1,19 @@
+class Rectangle
+{
+    int l;
+    int h;
+    Rectangle(int len, int ht)
+    {
+        l = len;
+        h = ht;
+    }
+    void display()
+    {
+        System.out.println("Area:"+l*h);
+    }
+    public static void main(String args[])
+    {
+        Rectangle r = new Rectangle(10, 20);
+        r.display();
+    }
+}
