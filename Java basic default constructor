@@ -1,0 +1,8 @@
+class WPU {
+    WPU() {
+        System.out.println("WPU constructor called");
+    }
+    public static void main(String[] args) {
+        WPU wpu = new WPU();
+    }
+}
