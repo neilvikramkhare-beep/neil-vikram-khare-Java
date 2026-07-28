@@ -1,0 +1,17 @@
+import java.util.String;
+public class StringComparison {
+    public static void main(String[] args)
+    {
+        String password1 = "hbdhbdjhdbdhbnbdhb";
+        String password2 = "dhdjddbdhbhdbewdheb";
+        if(password1.equals(password2))
+        {
+            System.out.println("Passwords match");
+        }
+        else
+        {
+            System.out.println("Passwords do not match");
+        }
+
+    }
+}
