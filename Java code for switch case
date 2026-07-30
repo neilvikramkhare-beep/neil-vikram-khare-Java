@@ -1,0 +1,27 @@
+public class SwitchCase {
+    public static void main(String[] args) 
+{
+        int a = 3;
+        int b = 88;
+        int n = 5; 
+        switch (n) 
+{
+            case 1:
+                int add = a+b;
+                break;
+            case 2:
+                int sub = a-b;
+                break;
+            case 3:
+                int mul = a*b;
+                break;
+            case 4:
+                int div = a/b;
+                break;
+            case 5:
+                int mod = a%b;
+                break; 
+        }
+        System.out.println("Operations performed are:"+n); 
+    }
+}
