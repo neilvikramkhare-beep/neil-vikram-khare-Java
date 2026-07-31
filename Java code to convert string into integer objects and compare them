@@ -1,0 +1,18 @@
+public class PrimitiveToObject
+{ 
+    public static void main(String[] args)
+{ 
+        Double a = 65.0; 
+        Double b = a; 
+        Double c = 76.3; 
+        Double d = c; 
+        if(b > d)
+{ 
+            System.out.println("b is greater."); 
+        } 
+else 
+{ 
+            System.out.println("d is greater."); 
+        } 
+    } 
+}
