@@ -1,0 +1,23 @@
+import java.util.Scanner;
+public class PrimitiveToObject { 
+    public static void main(String[] args) { 
+       Scanner sc = new Scanner(System.in);
+       System.out.println("Enter a number:");
+       String s1 = sc.nextLine();
+       System.out.println("Enter a number:");
+       String s2 = sc.nextLine();
+       Integer n1 = Integer.valueOf(s1);
+       Integer n2 = Integer.valueOf(s2);
+       int sum = n1 + n2;
+       System.out.println("Sum of values:"+sum);
+       int sub = n1 - n2;
+       System.out.println("Substraction of values:"+sub);
+       int mul = n1 * n2;
+       System.out.println("Multiplication of values:"+mul);
+       int div = n1 / n2;
+       System.out.println("Division of values:"+div);
+       int mod = n1 % n2;
+       System.out.println("Modulus of values:"+mod);
+       System.out.println(sum+sub+mul+div+mod);
+    } 
+}
