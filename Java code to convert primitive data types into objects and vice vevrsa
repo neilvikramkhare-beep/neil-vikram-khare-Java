@@ -1,0 +1,12 @@
+public class PrimitiveToObject 
+{
+    public static void main(String[] args)
+    {
+        int a = 65;
+        Integer b = a;
+        double c = 76.3;
+        Double d = c;
+  System.out.println("Integer value:"+b);
+  System.out.println("Double value:"+d);
+    }
+}
