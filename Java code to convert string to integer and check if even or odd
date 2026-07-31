@@ -1,0 +1,17 @@
+import java.util.Scanner;
+public class PrimitiveToObject { 
+    public static void main(String[] args) { 
+       Scanner sc = new Scanner(System.in);
+       System.out.println("Enter a number:");
+       String s1 = sc.nextLine();
+       Integer n1 = Integer.valueOf(s1);
+       if(n1 % 2 == 0)
+       {
+        System.out.println("Even");
+       }
+        else
+            {
+            System.out.println("Odd");
+        }
+       }
+    } 
