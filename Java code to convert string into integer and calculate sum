@@ -1,0 +1,11 @@
+public class PrimitiveToObject 
+{
+    public static void main(String[] args)
+    {
+        String a = "65";
+        String b = a;
+        String c = "76.3";
+        String d = c;
+  System.out.println("Total of values:"+(b+d));
+    }
+}
