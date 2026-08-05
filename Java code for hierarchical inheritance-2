@@ -1,0 +1,39 @@
+class Shape
+{
+    int s1 = 7;
+    int s2 = 7;
+    void area()
+    {
+        System.out.println("Area of square is: " + (s1 * s2));
+    }
+}
+class Rectangle extends Shape
+{
+    int l = 78;
+    int b = 96;
+    void area()
+    {
+        System.out.println("Area of Rectangle:"+ (l*b));
+    }
+}
+class Triangle extends  Shape
+{
+    int h = 45;
+    int b = 60;
+    void area()
+    {
+        System.out.println("Area of Triangle is: " + (0.5 * b * h));
+    }
+}
+class Main
+{
+    public static void main(String[] args)
+    {
+        Shape s = new Shape();
+        s.area();
+        Rectangle r = new Rectangle();
+        r.area();
+        Triangle t = new Triangle();
+        t.area();
+    }
+}
