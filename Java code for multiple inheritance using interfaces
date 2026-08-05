@@ -1,0 +1,27 @@
+interface FY 
+{ 
+    void display(int rollno, String name, int result); 
+} 
+interface SY 
+{ 
+    void display(int rollno, String name, int result); 
+} 
+class Student implements FY, SY { 
+    int rollno;
+    String name;
+    int result;
+    public Student(int rollno, String name, int result) {
+        this.rollno = rollno;
+        this.name = name;
+        this.result = result;
+    }
+    public void display(int rollno, String name, int result) { 
+        System.out.println("Hello: " + name); 
+    } 
+} 
+class Main { 
+    public static void main(String[] args) { 
+        Student s = new Student(76, "Neil", 67); 
+        s.display(s.rollno, s.name, s.result);
+    } 
+}
