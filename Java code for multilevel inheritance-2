@@ -1,0 +1,44 @@
+class Book
+{
+    String author;
+    String title;
+    String publisher;
+    Book(String author, String title, String publisher)
+     {
+        this.author = author;
+        this.title = title;
+        this.publisher = publisher;
+        System.out.println("Book Details: " + author + ", " + title + ", " + publisher);
+    }
+}
+class BookInfo extends Book
+{
+    int price;
+    String stock;
+    BookInfo(String author, String title, String publisher, int price, String StockPosition)
+    {
+        super(author, title, publisher);
+        this.price = price;
+        this.stock = StockPosition;
+        System.out.println("Price: " + price);
+        System.out.println("Stock position:"+ stock);
+    }
+}
+class BookSales extends BookInfo
+{
+    int nocopiesSold;
+    BookSales(String author, String title, String publisher, int price, String StockPosition, int nocopiesSold)
+    {
+        super(author, title, publisher, price, StockPosition);
+        this.nocopiesSold = nocopiesSold;
+        System.out.println("Copies not Sold: " + nocopiesSold);
+    }
+}
+class Main
+{
+    public static void main(String args[])
+    {
+        BookInfo b = new BookInfo("J.K. Rowling", "Harry Potter", "Bloomsbury", 20, "Available");
+        BookSales bs = new BookSales("J.K. Rowling", "Harry Potter", "Bloomsbury", 20, "Available", 100);
+    }
+}
