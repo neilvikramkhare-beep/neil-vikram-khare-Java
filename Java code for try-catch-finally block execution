@@ -1,0 +1,32 @@
+class CustomThrowable { 
+    public CustomThrowable(String message) { 
+        System.out.println(message); 
+    } 
+} 
+class ArrayException extends CustomThrowable { 
+    public ArrayException(String message) { 
+        super(message); 
+        int[] a = new int[5]; 
+        a[10] = 20; 
+    } 
+} 
+class Arithmeticexception extends Exception { 
+    public Arithmeticexception(String m) { 
+        super(m); 
+        int a = 10 / 0;
+    } 
+} 
+public class Main { 
+    public static void main(String[] args) { 
+        try { 
+            ArrayException arrayException = new ArrayException("Array index out of bounds"); 
+        } catch (ArrayIndexOutOfBoundsException e) { 
+            System.out.println("Caught ArrayIndexOutOfBoundsException: " + e.getMessage()); 
+        } 
+        try { 
+            Arithmeticexception arithmeticException = new Arithmeticexception("Division by zero"); 
+        } catch (ArithmeticException a) { 
+            System.out.println("Caught ArithmeticException: " + a.getMessage()); 
+        } 
+    } 
+}
