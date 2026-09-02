@@ -1,0 +1,28 @@
+import java.util.InputMismatchException;
+public class InputAndArithematicExceptions {
+    public static void main(String[] args) {
+        try {
+            int a = 10;
+            int b = 0;
+            int c = a / b;
+            System.out.println("Result: " + c);
+        } catch (ArithmeticException e) {
+            System.out.println("Arithmetic Exception: " + e.getMessage());
+        }
+        try {
+            String s = null;
+            if (s == null) {
+                throw new NullPointerException("String is null");
+            }
+            System.out.println(s.charAt(6));
+        } catch (NullPointerException e) {
+            System.out.println("Null Pointer Exception: " + e.getMessage());
+        }
+        try {
+            int[] arr = new int[5];
+            System.out.println(arr[10]); 
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Array Index Out Of Bounds Exception: " + e.getMessage());
+        }
+    }
+}
