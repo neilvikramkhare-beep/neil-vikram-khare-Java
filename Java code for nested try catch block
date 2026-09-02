@@ -1,0 +1,40 @@
+public class CustomException extends Exception
+{
+    public CustomException(String message)
+    {
+        super(message);
+        System.out.println("This is an error.");
+    }
+    class NestedException extends CustomException
+    {
+        public NestedException(String message)
+        {
+            super("This is an exception.");
+            String s = "fjhadhasgddfed";
+            Integer.parseInt(s);
+            try
+            {
+                throw new CustomException("This is a custom exception.");
+            }
+            catch (CustomException e)
+            {
+                System.out.println(e.getMessage());
+            }
+            try
+            {
+                throw new CustomException("This is not a proper value.");
+            }
+            catch (CustomException e)
+            {
+                System.out.println("Final message:" + e.getMessage());
+            }
+        }
+    }
+}
+class NestedTryCatchBlock
+{
+    public static void main(String args[])
+    {
+        CustomException ex = new CustomException("Custom exception.");
+    }
+}
