@@ -1,0 +1,26 @@
+interface Printer
+    {
+        void print();
+    }
+interface Scan
+    {
+        void scan();
+    }
+class Machine implements Printer, Scan
+    {
+        public void print()
+        {
+            System.out.println("Print data.");
+        }
+        public void scan()
+        {
+            System.out.println("Scan the data.");
+        }
+    }
+class Main {
+    public static void main(String[] args) {
+        Machine m = new Machine();
+        m.print();
+        m.scan();
+    }
+}
