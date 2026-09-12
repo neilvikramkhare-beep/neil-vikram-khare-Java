@@ -1,0 +1,23 @@
+public class EvenOddException
+{
+    public static void main(String[] args) 
+    {
+        int number = 5; 
+
+        try 
+    {
+            if (number % 2 == 0) 
+            {
+                throw new Exception("Even number exception");
+            }
+            else 
+            {
+                throw new Exception("Odd number exception");
+            }
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+}
