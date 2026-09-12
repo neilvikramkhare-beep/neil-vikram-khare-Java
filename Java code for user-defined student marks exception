@@ -1,0 +1,13 @@
+public class StudentMarksException {
+    public static void main(String[] args) {
+        int marks = 105; 
+        try {
+            if (marks < 0 || marks > 100) {
+                throw new Exception("Marks should be between 0 and 100.");
+            }
+            System.out.println("Student marks: " + marks);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
