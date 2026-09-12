@@ -1,0 +1,104 @@
+public class Multithreading {
+    private Thread thread;
+    private String threadName;
+    private int threadPriority;
+    private boolean isRunning;
+    private int threadCount;
+    private static final int MAX_THREADS = 10;
+    private static final int MIN_PRIORITY = Thread.MIN_PRIORITY;
+    void startThread(String name, int priority) {
+        if (threadCount < MAX_THREADS) {
+            threadName = name;
+            threadPriority = priority;
+            thread = new Thread(() -> {
+                isRunning = true;
+                while (isRunning) {
+                    // Thread execution logic here
+                }
+            });
+            thread.setName(threadName);
+            thread.setPriority(threadPriority);
+            thread.start();
+            threadCount++;
+        } else {
+            System.out.println("Maximum number of threads reached.");
+        }
+    }
+    void stopThread() {
+        isRunning = false;
+        if (thread != null) {
+            thread.interrupt();
+            threadCount--;
+        }
+    }
+    void setThreadPriority(int priority) {
+        if (thread != null && priority >= MIN_PRIORITY && priority <= Thread.MAX_PRIORITY) {
+            thread.setPriority(priority);
+        } else {
+            System.out.println("Invalid priority value.");
+        }
+    }
+    void setThreadName(String name) {
+        if (thread != null) {
+            thread.setName(name);
+        } else {
+            System.out.println("Thread is not running.");
+        }
+    }
+    void printThreadCount() {
+        System.out.println("Current Thread Count: " + threadCount);
+    }
+    void printThreadPriorityRange() {
+        System.out.println("Minimum Thread Priority: " + MIN_PRIORITY);
+        System.out.println("Maximum Thread Priority: " + Thread.MAX_PRIORITY);
+    }
+    void printThreadName() {
+        if (thread != null) {
+            System.out.println("Thread Name: " + thread.getName());
+        } else {
+            System.out.println("Thread is not running.");
+        }
+    }
+    void printThreadState() {
+        if (thread != null) {
+            System.out.println("Thread State: " + thread.getState());
+        } else {
+            System.out.println("Thread is not running.");
+        }
+    }
+    void printThreadPriority() {
+        if (thread != null) {
+            System.out.println("Thread Priority: " + thread.getPriority());
+        } else {
+            System.out.println("Thread is not running.");
+        }
+    }
+    void ThreadMethods() {
+        System.out.println("Thread Methods:");
+        System.out.println("1. startThread(String name, int priority)");
+        System.out.println("2. stopThread()");
+        System.out.println("3. setThreadPriority(int priority)");
+        System.out.println("4. setThreadName(String name)");
+        System.out.println("5. printThreadCount()");
+        System.out.println("6. printThreadPriorityRange()");
+        System.out.println("7. printThreadName()");
+        System.out.println("8. printThreadState()");
+        System.out.println("9. printThreadPriority()");
+        System.out.println("10. printThreadDetails()");
+        System.out.println("11. ThreadMethods()");
+        System.out.println("12. exit");
+    }
+    void printThreadDetails() {
+        if (thread != null) {
+            System.out.println("Thread Name: " + thread.getName());
+            System.out.println("Thread Priority: " + thread.getPriority());
+            System.out.println("Thread State: " + thread.getState());
+        } else {
+            System.out.println("Thread is not running.");
+        }
+    }
+    public static void main(String[] args) {
+        Multithreading multithreading = new Multithreading();
+        multithreading.ThreadMethods();
+    }
+}
