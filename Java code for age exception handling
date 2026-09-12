@@ -1,0 +1,14 @@
+public class AgeException {
+    public static void main(String[] args) {
+        int age = 15; 
+        try {
+            if (age < 18) {
+                throw new Exception("Age is less than 18. Access denied.");
+            } else {
+                System.out.println("Access granted.");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
