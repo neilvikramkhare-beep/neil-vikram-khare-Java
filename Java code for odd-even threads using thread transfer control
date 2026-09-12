@@ -1,0 +1,25 @@
+public class OddEvenPrinter
+{
+    private static int current = 1;
+    public static void main(String[] args) 
+{
+        Object lock = new Object();
+        int max = 10;
+        Runnable r = () -> 
+{
+            while (current <= max) 
+{
+                synchronized (lock) 
+{
+                    System.out.println(Thread.currentThread().getName() + ": " + current++);
+                    lock.notify();
+                    try { if (current <= max) lock.wait(); } catch (Exception e) 
+{}
+                }
+            }
+        };
+        new Thread(r, "Odd").start();
+        try { Thread.sleep(10); } catch (Exception e) {} 
+        new Thread(r, "Even").start();
+    }
+}
