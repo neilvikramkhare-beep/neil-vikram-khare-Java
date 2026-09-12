@@ -1,0 +1,25 @@
+public class OddEvenThread
+{
+    public static void main(String[] args) 
+{
+        System.out.println("Starting Odd and Even Threads");
+        new Thread(run(1, "Odd")).start();
+        new Thread(run(2, "Even")).start();
+    }
+    private static Runnable run(int start, String name) 
+{
+        return () -> 
+{
+            for (int i = start; i <= 10; i += 2)
+{
+                System.out.println(i);
+                try 
+{ 
+Thread.sleep(10); 
+} 
+catch (Exception e) 
+{}
+            }
+        };
+    }
+}
