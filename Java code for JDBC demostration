@@ -1,0 +1,148 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Savepoint;
+import java.sql.Statement;
+public class Main {
+    private static final String DB_URL = "jdbc:h2:mem:demo_db;DB_CLOSE_DELAY=-1";
+    private static final String USER = "sa";
+    private static final String PASSWORD = "";
+    public static void main(String[] args) {
+        System.out.println("=== Starting JDBC Built-in Methods Demonstration ===");
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWORD)) {
+            System.out.println("1. Connection established successfully via DriverManager.getConnection().");
+            setupDatabaseSchema(conn);
+            demonstratePreparedStatementsWithGeneratedKeys(conn);
+            demonstrateBatchProcessing(conn);
+            demonstrateResultSetAndMetadata(conn);
+            demonstrateTransactionsAndSavepoints(conn);
+        } catch (SQLException e) {
+            System.err.println("Database error occurred!");
+            for (SQLException current = e; current != null; current = current.getNextException()) {
+                System.err.println("SQL State: " + current.getSQLState());
+                System.err.println("Error Code: " + current.getErrorCode());
+                System.err.println("Message: " + current.getMessage());
+            }
+        }
+    }
+    private static void setupDatabaseSchema(Connection conn) throws SQLException {
+        try (Statement stmt = conn.createStatement()) {
+            String createTableSql = "CREATE TABLE products ("
+                    + "id INT AUTO_INCREMENT PRIMARY KEY, "
+                    + "name VARCHAR(100) NOT NULL, "
+                    + "price DOUBLE, "
+                    + "stock INT"
+                    + ")";
+            stmt.executeUpdate(createTableSql);
+            System.out.println("2. Schema created using Statement.executeUpdate().");
+        }
+    }
+    private static void demonstratePreparedStatementsWithGeneratedKeys(Connection conn) throws SQLException {
+        String insertSql = "INSERT INTO products (name, price, stock) VALUES (?, ?, ?)";
+        try (PreparedStatement pstmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1, "Wireless Mouse");
+            pstmt.setDouble(2, 29.99);
+            pstmt.setInt(3, 150);
+            int rowsAffected = pstmt.executeUpdate();
+            System.out.println("3. Record inserted using PreparedStatement. Rows affected: " + rowsAffected);
+            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    long generatedId = generatedKeys.getLong(1);
+                    System.out.println("   -> Auto-generated Key (ID) retrieved: " + generatedId);
+                }
+            }
+        }
+    }
+    private static void demonstrateBatchProcessing(Connection conn) throws SQLException {
+        String insertSql = "INSERT INTO products (name, price, stock) VALUES (?, ?, ?)";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(insertSql)) {
+            System.out.println("4. Batch processing multiple inserts...");
+            pstmt.setString(1, "Mechanical Keyboard");
+            pstmt.setDouble(2, 89.99);
+            pstmt.setInt(3, 45);
+            pstmt.addBatch();
+            pstmt.setString(1, "Gaming Monitor");
+            pstmt.setDouble(2, 249.50);
+            pstmt.setInt(3, 20);
+            pstmt.addBatch();
+            pstmt.setString(1, "Generic Cable");
+            pstmt.setNull(2, java.sql.Types.DOUBLE);
+            pstmt.setInt(3, 300);
+            pstmt.addBatch();
+            int[] updateCounts = pstmt.executeBatch();
+            System.out.println("   -> Batch completed. Executed " + updateCounts.length + " commands structurally.");
+        }
+    }
+    private static void demonstrateResultSetAndMetadata(Connection conn) throws SQLException {
+        String selectSql = "SELECT id, name, price, stock FROM products";
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(selectSql)) {
+            System.out.println("5. Processing query cursor results using ResultSet methods:");
+            ResultSetMetaData metaData = rs.getMetaData();
+            int columnCount = metaData.getColumnCount();
+            System.out.println("   [Metadata] Total columns in result set: " + columnCount);
+            for (int i = 1; i <= columnCount; i++) {
+                System.out.println("   [Metadata] Column " + i + ": " + metaData.getColumnName(i) 
+                        + " (" + metaData.getColumnTypeName(i) + ")");
+            }
+            while (rs.next()) {
+                int id = rs.getInt(1); 
+                String name = rs.getString("name");
+                int stock = rs.getInt("stock");
+                double price = rs.getDouble("price");
+                String priceDisplay = rs.wasNull() ? "N/A (Null)" : "$" + price;
+
+                System.out.println("   -> Row: ID=" + id + ", Name=" + name 
+                        + ", Price=" + priceDisplay + ", Stock=" + stock);
+            }
+        }
+    }
+    private static void demonstrateTransactionsAndSavepoints(Connection conn) throws SQLException {
+        System.out.println("6. Starting manual Transaction boundaries...");
+        SQLException transactionFailure = null;
+        try {
+            conn.setAutoCommit(false);
+            String updateSql = "UPDATE products SET stock = stock - ? WHERE id = ?";
+            try (PreparedStatement pstmt = conn.prepareStatement(updateSql)) {
+                
+                pstmt.setInt(1, 5);
+                pstmt.setInt(2, 1);
+                pstmt.executeUpdate();
+                System.out.println("   -> First update successful within transaction block.");
+                Savepoint savepoint1 = conn.setSavepoint("SavepointOne");
+                System.out.println("   -> Savepoint 'SavepointOne' created.");
+                pstmt.setInt(1, 10);
+                pstmt.setInt(2, 2);
+                pstmt.executeUpdate();
+                System.out.println("   -> Second update successful.");
+                conn.rollback(savepoint1);
+                System.out.println("   -> Rolled back explicitly to SavepointOne (Second update cancelled).");
+                conn.commit();
+                System.out.println("   -> Transaction safely committed.");
+            }
+        } catch (SQLException ex) {
+            transactionFailure = ex;
+            System.err.println("Transaction failed! Executing global rollback.");
+            try {
+                conn.rollback();
+            } catch (SQLException rollbackFailure) {
+                ex.addSuppressed(rollbackFailure);
+            }
+            throw ex;
+        } finally {
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException resetFailure) {
+                if (transactionFailure != null) {
+                    transactionFailure.addSuppressed(resetFailure);
+                } else {
+                    throw resetFailure;
+                }
+            }
+        }
+    }
+}
