@@ -1,0 +1,50 @@
+class AlphabetRunnable implements Runnable {
+    @Override
+    public void run() {
+        for (char c = 'A'; c <= 'Z'; c++) {
+            System.out.print(c + " ");
+            try {
+                Thread.sleep(100); 
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+class SpecialCharacterRunnable implements Runnable {
+    @Override
+    public void run() {
+        char[] specialChars = {'!', '@', '#', '$', '%', '^', '&', '*', '(', ')'};
+        for (char c : specialChars) {
+            System.out.print(c + " ");
+            try {
+                Thread.sleep(100); 
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+class NumberRunnable implements Runnable {
+    @Override
+    public void run() {
+        for (int i = 0; i <= 9; i++) {
+            System.out.print(i + " ");
+            try {
+                Thread.sleep(100); 
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+public class AlphabetSpecialCharacterNumberThreads {
+    public static void main(String[] args) {
+        Thread alphabetThread = new Thread(new AlphabetRunnable());
+        Thread specialCharThread = new Thread(new SpecialCharacterRunnable());
+        Thread numberThread = new Thread(new NumberRunnable());
+        alphabetThread.start();
+        specialCharThread.start();
+        numberThread.start();
+    }
+}
