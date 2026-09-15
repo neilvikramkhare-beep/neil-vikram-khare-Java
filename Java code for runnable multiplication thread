@@ -1,0 +1,31 @@
+class MultiplicationTable implements RunnableMultiplicationTable {
+    private final int number;
+    public MultiplicationTable(int number) {
+        this.number = number;
+    }
+    @Override
+    public void run() {
+        for (int i = 1; i <= 10; i++) {
+            System.out.println(number + " x " + i + " = " + (number * i));
+        }
+    }
+}
+class RunnableMultiplicationTableInterface {
+    private final RunnableMultiplicationTable multiplicationTable;
+    public RunnableMultiplicationTableInterface(RunnableMultiplicationTable multiplicationTable) {
+        this.multiplicationTable = multiplicationTable;
+    }
+    public void run() {
+        multiplicationTable.run();
+    }
+}
+interface RunnableMultiplicationTable {
+    void run();
+}
+class Main {
+    public static void main(String[] args) {
+        RunnableMultiplicationTable multiplicationTable = new MultiplicationTable(5);
+        RunnableMultiplicationTableInterface multiplicationTableInterface = new RunnableMultiplicationTableInterface(multiplicationTable);
+        multiplicationTableInterface.run();
+    }
+}
