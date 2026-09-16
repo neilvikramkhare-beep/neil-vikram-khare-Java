@@ -1,0 +1,52 @@
+class Book {
+    private String title;
+    private String author;
+    private int publisher;
+    public Book(String title, String author, int publisher) {
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+    }
+    void getdata() {
+        System.out.println("Book Title: " + title);
+        System.out.println("Author Name: " + author);
+        System.out.println("Publisher name: " + publisher);
+    }
+}
+class BookInfo extends Book {
+    protected int price;
+
+    public BookInfo(String title, String author, int publisher, int price) {
+        super(title, author, publisher);
+        this.price = price;
+    }
+    void getdata() {
+        super.getdata();
+        System.out.println("Price: " + price);
+    }
+}
+class BookSales extends BookInfo {
+    public int sales;
+    public BookSales(String title, String author, int publisher,int noCopiesSold, int price) {
+        super(title, author, publisher,price);
+        this.sales = noCopiesSold;
+    }
+    void getdata() {
+        super.getdata();
+        System.out.println("Sales: " + sales);
+    }
+    void revenueGenerated() {
+        int revenue = sales * super.price;
+        System.out.println("Revenue Generated: " + revenue);
+    }
+    void AllShow() {
+        getdata();
+        revenueGenerated();
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        BookInfo book = new BookInfo("Ramayana", "Rishi Vyas", 993, 23000);
+        book.getdata();
+    }
+}
