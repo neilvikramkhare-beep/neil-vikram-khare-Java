@@ -1,0 +1,14 @@
+interface Rectangle
+{
+    void findRectangle(int a, int b);
+}
+public class Main {
+    public static void main(String args[])
+    {
+        Rectangle rect = (int a, int b) ->
+        {
+            System.out.println("Area of rectangle is: " + (a * b));
+        };
+        rect.findRectangle(5, 10);
+    }
+}
