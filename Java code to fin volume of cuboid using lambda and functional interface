@@ -1,0 +1,12 @@
+interface Cuboid 
+{ 
+int findCuboid(int a, int b, int c); 
+} 
+public class Demo 
+{ 
+public static void main(String[] args) 
+{ 
+Cuboid c = (a, b, c) ->a * b * c; 
+System.out.println(c.findCuboid( 4,5,74)); 
+} 
+}
