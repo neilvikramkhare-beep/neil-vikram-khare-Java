@@ -1,0 +1,11 @@
+interface InnerBasicLambda
+{
+void display();
+}
+public class BasicLambda
+{
+    public static void main(String[] args)
+     {
+        InnerBasicLambda i = () -> System.out.println("Hello from Lambda!");
+        }
+    }
