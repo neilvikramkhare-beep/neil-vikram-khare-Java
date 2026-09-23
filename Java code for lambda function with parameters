@@ -1,0 +1,11 @@
+interface Addition
+{
+    int add(int a, int b);
+}
+public class ParameterLambda {
+    public static void main(String[] args) {
+        Addition addition = (a, b) -> a + b;
+        int result = addition.add(5, 10);
+        System.out.println("Result: " + result);
+    }
+}
