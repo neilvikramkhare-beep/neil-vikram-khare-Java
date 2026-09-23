@@ -1,0 +1,15 @@
+interface Calculator { 
+    void calculate(int a, int b); 
+} 
+public class LambdaCalculator { 
+    public static void main(String[] args) { 
+        Calculator ad = (a, b) -> System.out.println("Addition: " + (a + b)); 
+        Calculator su = (a, b) -> System.out.println("Subtraction: " + (a - b)); 
+        Calculator mu = (a, b) -> System.out.println("Multiplication: " + (a * b)); 
+        Calculator div = (a, b) -> System.out.println("Division: " + (a / b)); 
+        ad.calculate(10, 5);
+        su.calculate(10, 5);
+        mu.calculate(10, 5);
+        div.calculate(10, 5);
+    } 
+}
