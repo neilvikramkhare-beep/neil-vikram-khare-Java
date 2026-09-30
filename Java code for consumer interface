@@ -1,0 +1,17 @@
+import java.util.function.Consumer;
+public class ConsumerInterfaceFunctions
+{
+    public static void main(String[] args)
+    {
+        Consumer<String> display =name -> System.out.println("Hello, " + name);
+        display.accept("John");
+        display.getClass().getName();
+        display.andThen(display);
+        display.andThen(display).accept("John");
+        display.andThen(name -> System.out.println("Welcome, " + name)).accept("John");
+        display.equals(display);
+        display.hashCode();
+        display.toString();
+        display.andThen(name -> System.out.println("Goodbye, " + name)).accept("John");
+    }
+}
