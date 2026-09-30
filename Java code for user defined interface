@@ -1,0 +1,20 @@
+interface MyInterface
+{
+    void myMethod();
+}
+interface Addition
+{
+    void add(int a, int b);
+}
+public class UserDefinedInterface {
+    public static void main(String[] args) {
+        Addition addition = new Addition()
+         {
+            @Override
+            public void add(int a, int b) {
+                System.out.println(a + b);
+            }
+        };
+        addition.add(5, 10);
+    }
+}
