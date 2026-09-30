@@ -1,0 +1,11 @@
+public class PredicateFunctionalInterface {
+    public static void main(String[] args) {
+        java.util.function.Predicate<Integer> isEven = num -> num % 2 == 0;
+        int number = 4;
+        if (isEven.test(number)) {
+            System.out.println(number + " is even.");
+        } else {
+            System.out.println(number + " is odd.");
+        }
+    }
+}
