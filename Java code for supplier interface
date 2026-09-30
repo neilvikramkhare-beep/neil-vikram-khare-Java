@@ -1,0 +1,27 @@
+public class SupplierInterface {
+    public static class DeliveryOrder {
+        public String goods = "goods";
+        public int quantity = 0;
+        public String destination = "the customer";
+        public DeliveryOrder(String goods, int quantity, String destination) {
+            this.goods = goods;
+            this.quantity = quantity;
+            this.destination = destination;
+        }
+    }
+    public void supply(DeliveryOrder order) {
+        if (order == null) {
+            System.out.print("Supplying goods to the customer.");
+        } else if (order.quantity == 0 && order.destination.equals("the customer")) {
+            System.out.print("Order - 1");
+        } else if (order.destination.equals("the customer")) {
+            System.out.print("Order - 2");
+        } else {
+            System.out.print("Order - 3");
+        }
+    }
+    public static void main(String[] args) {
+        SupplierInterface supplier = new SupplierInterface();
+        supplier.supply(new DeliveryOrder("Books", 10, "Warehouse A"));
+    }
+}
