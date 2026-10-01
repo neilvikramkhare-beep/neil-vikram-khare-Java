@@ -1,0 +1,35 @@
+import java.util.function.Supplier;
+import java.util.function.IntSupplier;
+import java.util.function.DoubleSupplier;
+import java.util.function.LongSupplier;
+import java.util.function.BooleanSupplier;
+@FunctionalInterface
+interface CharSupplier {
+    char getAsChar();
+}
+@FunctionalInterface
+interface FloatSupplier {
+    float getAsFloat();
+}
+public class SupplierInterface {
+    public static void main(String[] args) {
+        Supplier<String> supplier = () -> "Hello, World!";
+        System.out.println(supplier.get());
+        IntSupplier intSupplier = () -> 42;
+        System.out.println(intSupplier.getAsInt());
+        DoubleSupplier doubleSupplier = () -> 3.14;
+        System.out.println(doubleSupplier.getAsDouble());
+        LongSupplier longSupplier = () -> 1000L;
+        System.out.println(longSupplier.getAsLong());
+        BooleanSupplier booleanSupplier = () -> true;
+        System.out.println(booleanSupplier.getAsBoolean());
+        CharSupplier charSupplier = () -> 'A';
+        System.out.println(charSupplier.getAsChar());
+        FloatSupplier floatSupplier = () -> 2.71f;
+        System.out.println(floatSupplier.getAsFloat());
+        System.out.println(supplier.get());
+        System.out.println(supplier.get());
+        System.out.println(supplier.get()); 
+        System.out.println(supplier.get()); 
+    }
+}
