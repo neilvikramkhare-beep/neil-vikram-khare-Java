@@ -1,0 +1,10 @@
+import java.time.Duration;
+public class DurationClass {
+    public static void main(String[] args) {
+        java.time.Duration duration = java.time.Duration.ofHours(2).plusMinutes(30).plusSeconds(15);
+        System.out.println("Duration: " + duration);
+        System.out.println("Total Seconds: " + duration.getSeconds());
+        System.out.println("Total Minutes: " + duration.toMinutes());
+        System.out.println("Total Hours: " + duration.toHours());
+    }
+}
