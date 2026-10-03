@@ -1,0 +1,16 @@
+import java.time.Period;
+public class PeriodClass
+{
+    public static void main(String[] args) {
+        Period period = Period.of(2, 3, 4);
+        Period period2 = Period.ofDays(10);
+        Period period3 = Period.ofWeeks(5);
+        Period period4 = Period.ofMonths(6);
+        Period period5 = Period.ofYears(7);
+        System.out.println("Period: " + period);
+        System.out.println("Period2: " + period2);
+        System.out.println("Period3: " + period3);
+        System.out.println("Period4: " + period4);
+        System.out.println("Period5: " + period5);
+    }
+}
