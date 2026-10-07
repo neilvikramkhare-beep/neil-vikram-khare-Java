@@ -1,0 +1,9 @@
+import org.joda.time.DateTime;
+public class SubstractDaysMonthsYearJODAAPI {
+    public static void main(String[] args) {
+        org.joda.time.DateTime currentDate = new org.joda.time.DateTime();
+        org.joda.time.DateTime dateMinusDays = currentDate.minusDays(10);
+        System.out.println("Current Date: " + currentDate);
+        System.out.println("Date after subtracting 10 days: " + dateMinusDays);
+    }
+}
