@@ -1,0 +1,7 @@
+import org.joda.time.DateTime;
+class CurrentDateTimeJODAAPI {
+    public static void main(String[] args) {
+        org.joda.time.DateTime currentDateTime = new org.joda.time.DateTime();
+        System.out.println("Current Date and Time using JODA API: " + currentDateTime);
+    }
+}
