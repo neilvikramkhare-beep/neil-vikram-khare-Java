@@ -1,0 +1,16 @@
+import java.util.LinkedList;
+public class Linkedlist {
+    public static void main(String[] args) {
+        LinkedList<String> list = new LinkedList<>();
+        list.add("Item 1");
+        list.add("Item 2");
+        list.add("Item 3");
+        System.out.println("LinkedList: " + list);
+        System.out.println("Size of LinkedList: " + list.size());
+        System.out.println("First item: " + list.getFirst());
+        System.out.println("Last item: " + list.getLast());
+        System.out.println("Removing first item: " + list.removeFirst());
+        System.out.println("LinkedList after removal: " + list);
+        System.out.println("Size of LinkedList after removal: " + list.size());
+    }
+}
