@@ -1,0 +1,9 @@
+import java.util.List;
+public class ListInterface {
+    public static void main(String[] args) {
+        List<String> colors = List.of("Red", "Green", "Blue");
+        List<String> moreColors = List.of("Yellow", "Purple");
+        System.out.println(colors);
+        System.out.println(moreColors);
+    }
+}
