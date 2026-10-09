@@ -1,0 +1,26 @@
+public class TimeAPI {
+    public static void getCurrentTime() {
+        System.out.println("Current Time: " + java.time.LocalTime.now().toString());
+    }
+    public static void getCurrentDate() {
+        System.out.println("Current Date: " + java.time.LocalDate.now().toString());
+    }
+    public static void getCurrentDateTime() {
+        System.out.println("Current DateTime: " + java.time.LocalDateTime.now().toString());
+    }
+    public static void getCurrentTimeInMillis() {
+        System.out.println("Current Time in Millis: " + String.valueOf(System.currentTimeMillis()));
+    }
+    public static void getCurrentTimeInSeconds() {
+        System.out.println("Current Time in Seconds: " + String.valueOf(System.currentTimeMillis() / 1000));
+    }
+}
+class Main {
+    public static void main(String[] args) {
+        TimeAPI.getCurrentTime();
+        TimeAPI.getCurrentDate();
+        TimeAPI.getCurrentDateTime();
+        TimeAPI.getCurrentTimeInMillis();
+        TimeAPI.getCurrentTimeInSeconds();
+    }
+}
