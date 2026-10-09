@@ -1,0 +1,20 @@
+public class ArrayListLinkedListCompareInsertionMethods {
+    public static void main(String[] args) {
+        java.util.ArrayList<Integer> arrayList = new java.util.ArrayList<>();
+        java.util.LinkedList<Integer> linkedList = new java.util.LinkedList<>();
+        long startTime = System.nanoTime();
+        for (int i = 0; i < 100000; i++) {
+            arrayList.add(i);
+        }
+        long endTime = System.nanoTime();
+        long arrayListInsertionTime = endTime - startTime;
+        startTime = System.nanoTime();
+        for (int i = 0; i < 100000; i++) {
+            linkedList.add(i);
+        }
+        endTime = System.nanoTime();
+        long linkedListInsertionTime = endTime - startTime;
+        System.out.println("ArrayList insertion time: " + arrayListInsertionTime + " nanoseconds");
+        System.out.println("LinkedList insertion time: " + linkedListInsertionTime + " nanoseconds");
+    }
+}
