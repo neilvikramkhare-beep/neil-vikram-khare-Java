@@ -1,0 +1,17 @@
+public class DateAPI {
+    public static void main(String[] args) {
+        String dateString = "2024-06-15";
+        String formattedDate = formatDate(dateString);
+        System.out.println("Formatted Date: " + formattedDate);
+    }
+    public static String formatDate(String date) {
+        String[] parts = date.split("-");
+        if (parts.length != 3) {
+            throw new IllegalArgumentException("Invalid date format. Expected format: yyyy-MM-dd");
+        }
+        String year = parts[0];
+        String month = parts[1];
+        String day = parts[2];
+        return day + "/" + month + "/" + year;
+    }
+}
