@@ -1,0 +1,43 @@
+import java.util.*;
+public class ShortestJobFirst {
+    static class Process {
+        int id;
+        long arrival, burst;
+        Process(int id, long arrival, long burst) {
+            this.id = id;
+            this.arrival = arrival;
+            this.burst = burst;
+        }
+    }
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        Process[] processes = new Process[n];
+        for (int i = 0; i < n; i++)
+            processes[i] = new Process(i + 1, in.nextLong(), in.nextLong());
+        Arrays.sort(processes, Comparator.comparingLong(p -> p.arrival));
+        PriorityQueue<Process> ready = new PriorityQueue<>(
+                Comparator.comparingLong((Process p) -> p.burst)
+                        .thenComparingLong(p -> p.arrival).thenComparingInt(p -> p.id));
+        long[] waiting = new long[n], turnaround = new long[n];
+        long time = 0;
+        double totalWaiting = 0, totalTurnaround = 0;
+        int next = 0;
+        for (int done = 0; done < n; done++) {
+            if (ready.isEmpty() && time < processes[next].arrival)
+                time = processes[next].arrival;
+            while (next < n && processes[next].arrival <= time)
+                ready.add(processes[next++]);
+            Process p = ready.remove();
+            time += p.burst;
+            turnaround[p.id - 1] = time - p.arrival;
+            waiting[p.id - 1] = turnaround[p.id - 1] - p.burst;
+            totalWaiting += waiting[p.id - 1];
+            totalTurnaround += turnaround[p.id - 1];
+        }
+        for (int i = 0; i < n; i++)
+            System.out.printf("P%d: waiting=%d, turnaround=%d%n", i + 1, waiting[i], turnaround[i]);
+        System.out.printf("Average waiting: %.2f%nAverage turnaround: %.2f%n",
+                totalWaiting / n, totalTurnaround / n);
+    }
+}
