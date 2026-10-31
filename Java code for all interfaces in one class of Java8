@@ -1,0 +1,30 @@
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+public class FunctionalInterfaces {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList(" Alice ", "Bob", " ");
+        Consumer<String> print = System.out::println;
+        Consumer<String> log = value -> System.out.println("Processed: " + value);
+        log.andThen(print).accept("Ready");
+        Supplier<String> fallbackName = () -> "Guest";
+        System.out.println("Fallback: " + fallbackName.get());
+        Function<String, String> normalize = String::trim;
+        Function<String, String> capitalize = value -> value.isEmpty()? value: value.substring(0, 1).toUpperCase(Locale.ROOT) + value.substring(1);
+        Function<String, Integer> length = String::length;
+        System.out.println("Normalized length: " + normalize.andThen(length).apply(" Alice "));
+        System.out.println("Composed length: " + length.compose(normalize).apply(" Bob "));
+        System.out.println("Identity: " + Function.<String>identity().apply("unchanged"));
+        Predicate<String> nonBlank = value -> !value.isEmpty();
+        Predicate<String> startsWithA = value -> value.startsWith("A");
+        Predicate<String> validName = nonBlank.and(value -> value.length() >= 3);
+        System.out.println("Valid name: " + validName.test("Alice"));
+        System.out.println("Blank name: " + nonBlank.negate().test(""));
+        System.out.println("Starts with A or is Bob: "+ startsWithA.or(Predicate.isEqual("Bob")).test("Alice"));
+        names.stream().map(normalize).filter(nonBlank).map(capitalize).forEach(print);
+    }
+}
