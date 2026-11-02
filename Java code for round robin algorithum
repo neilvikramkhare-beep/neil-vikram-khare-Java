@@ -1,0 +1,32 @@
+import java.util.Scanner;
+public class RoundRobin {
+    public static void main(String[] args) {
+        int[] processes = {1, 2, 3};
+        int[] burstTime = {10, 5, 8};
+        int[] remainingTime = burstTime.clone(); 
+        int quantum = 2; 
+        int time = 0; 
+        boolean done;
+        System.out.println("Execution Log:");
+        while (true) {
+            done = true; 
+            for (int i = 0; i < processes.length; i++) {
+                if (remainingTime[i] > 0) {
+                    done = false; 
+                    if (remainingTime[i] > quantum) {
+                        time += quantum;
+                        remainingTime[i] -= quantum;
+                        System.out.println("Process " + processes[i] + " runs for " + quantum + " units. Remaining: " + remainingTime[i]);
+                    } else {
+                        time += remainingTime[i];
+                        System.out.println("Process " + processes[i] + " runs for " + remainingTime[i] + " units and FINISHES at time " + time);
+                        remainingTime[i] = 0;
+                    }
+                }
+            }
+            if (done) {
+                break;
+            }
+        }
+    }
+}
