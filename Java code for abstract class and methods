@@ -1,0 +1,14 @@
+public class AbstractClassAbstractMethods {
+    public static void main(String[] args) {
+        ConcreteClass obj = new ConcreteClass();
+        obj.abstractMethod();
+    }
+}
+abstract class AbstractClass {
+    abstract void abstractMethod();
+}
+class ConcreteClass extends AbstractClass {
+    void abstractMethod() {
+        System.out.println("Abstract method implemented in concrete class");
+    }
+}
