@@ -1,0 +1,18 @@
+public class CopyConstructor {
+    public int id;
+    public String name;
+    public CopyConstructor(CopyConstructor obj) {
+        this.id = obj.id;
+        this.name = obj.name;
+    }
+    public void display() {
+        System.out.println("Id: " + id + ", Name: " + name);
+    }
+    public static void main(String[] args) {
+        CopyConstructor obj1 = new CopyConstructor();
+        obj1.id = 1;
+        obj1.name = "John";
+        CopyConstructor obj2 = new CopyConstructor(obj1);
+        obj2.display();
+    }
+}
