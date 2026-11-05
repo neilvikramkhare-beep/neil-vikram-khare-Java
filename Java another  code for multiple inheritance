@@ -1,0 +1,21 @@
+interface Robin {
+    void methodFromParent1();
+}
+interface David {
+    void methodFromParent2();
+}
+public class Yash implements Robin, David {
+    public void methodFromParent1() {
+        System.out.println("Method from Parent1");
+    }
+    public void methodFromParent2() {
+        System.out.println("Method from Parent2");
+    }
+}
+public class MultipleInheritance {
+    public static void main(String[] args) {
+        Yash obj = new Yash();
+        obj.methodFromParent1();
+        obj.methodFromParent2();
+    }
+}
