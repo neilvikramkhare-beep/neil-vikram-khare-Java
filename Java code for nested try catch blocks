@@ -1,0 +1,14 @@
+public class NestedTry {
+    public static void main(String[] args) {
+        try {
+            int a = 10 / 0; 
+            try {
+                int b = Integer.parseInt("abc"); 
+            } catch (NumberFormatException e) {
+                System.out.println("Inner catch: Number format exception occurred.");
+            }
+        } catch (ArithmeticException e) {
+            System.out.println("Outer catch: Arithmetic exception occurred.");
+        }
+    }
+}
