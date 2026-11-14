@@ -1,0 +1,8 @@
+public class Unboxing {
+    public static void main(String[] args) {
+        Integer integerObject = 10; 
+        int primitiveInt = integerObject; 
+        System.out.println("Integer Object: " + integerObject);
+        System.out.println("Primitive int: " + primitiveInt);
+    }
+}
