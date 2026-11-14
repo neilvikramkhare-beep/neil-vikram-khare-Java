@@ -1,0 +1,16 @@
+public class ConstructorOverloading {
+    public ConstructorOverloading() {
+        System.out.println("Default constructor called");
+    }
+    public ConstructorOverloading(int a) {
+        System.out.println("Constructor with one parameter called: " + a);
+    }
+    public ConstructorOverloading(int a, int b) {
+        System.out.println("Constructor with two parameters called: " + a + ", " + b);
+    }
+    public static void main(String[] args) {
+        ConstructorOverloading obj1 = new ConstructorOverloading();
+        ConstructorOverloading obj2 = new ConstructorOverloading(10);
+        ConstructorOverloading obj3 = new ConstructorOverloading(20, 30);
+    }
+}
