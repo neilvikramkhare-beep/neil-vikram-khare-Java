@@ -1,0 +1,16 @@
+public class Autoboxing {
+    public static void main(String[] args) {
+        int primitiveInt = 10;
+        Integer wrapperInt = primitiveInt;
+        double primitiveDouble = 5.5;
+        Double wrapperDouble = primitiveDouble; 
+        boolean primitiveBoolean = true;
+        Boolean wrapperBoolean = primitiveBoolean; 
+        System.out.println("Primitive int: " + primitiveInt);
+        System.out.println("Wrapper Integer: " + wrapperInt);
+        System.out.println("Primitive double: " + primitiveDouble);
+        System.out.println("Wrapper Double: " + wrapperDouble);
+        System.out.println("Primitive boolean: " + primitiveBoolean);
+        System.out.println("Wrapper Boolean: " + wrapperBoolean);
+    }
+}
