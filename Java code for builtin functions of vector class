@@ -1,0 +1,31 @@
+import java.util.Vector;
+public class Vectors {
+    public static void main(String[] args) {
+        Vector vector1 = new Vector(3, 4);
+        Vector vector2 = new Vector(1, 2);
+        Vector sum = vector1.add(vector2);
+        System.out.println("Sum: " + sum);
+        Vector difference = vector1.subtract(vector2);
+        System.out.println("Difference: " + difference);
+        double dotProduct = vector1.dot(vector2);
+        System.out.println("Dot Product: " + dotProduct);
+        double magnitude = vector1.magnitude();
+        System.out.println("Magnitude of vector1: " + magnitude);
+        int crossProduct = vector1.cross(vector2);
+        System.out.println("Cross Product: " + crossProduct);
+        int angle = vector1.angle(vector2);
+        System.out.println("Angle: " + angle);
+        int distance = vector1.distance(vector2);
+        System.out.println("Distance: " + distance);
+        int projection = vector1.projection(vector2);
+        System.out.println("Projection: " + projection);
+        int reflection = vector1.reflection(vector2);
+        System.out.println("Reflection: " + reflection);
+        int rotation = vector1.rotation(vector2);
+        System.out.println("Rotation: " + rotation);
+        int scaling = vector1.scaling(vector2);
+        System.out.println("Scaling: " + scaling);
+        int translation = vector1.translation(vector2);
+        System.out.println("Translation: " + translation);
+    }
+}
