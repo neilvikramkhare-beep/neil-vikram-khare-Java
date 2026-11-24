@@ -1,0 +1,17 @@
+interface Square
+{
+    int area(int a);
+}
+interface Circle
+{
+    int areaCircle(int a, int b);
+}
+public class LambdaFunction
+{
+    public static void main(String[] args) {
+        Square s = (a) -> a * a;
+        Circle c = (a, b) -> (int) (3.14 * a * b);
+        System.out.println("Area of Square: " + s.area(5));
+        System.out.println("Area of Circle: " + c.areaCircle(5, 5));
+    }
+}
