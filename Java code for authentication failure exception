@@ -1,0 +1,28 @@
+class Throwable {
+    public Throwable(String message) {
+        System.out.println("Throwable: " + message);
+    }
+    public Throwable(String message, Throwable cause) {
+        System.out.println("Throwable: " + message);
+        System.out.println("Cause: " + cause.getMessage());
+    }
+}
+class Exception extends Throwable {
+    public Exception(String message) {
+        super(message);
+    }
+    public Exception(String message, Throwable cause) {
+        super(message, cause);
+    }
+}
+class AuthenticationFailureException extends Exception {
+    public AuthenticationFailureException(String message) {
+        super(message);
+        System.out.println("AuthenticationFailureException: " + message);
+    }
+    public AuthenticationFailureException(String message, Throwable cause) {
+        super(message, cause);
+        System.out.println("AuthenticationFailureException: " + message);
+        System.out.println("Cause: " + cause.getMessage());
+    }
+}
